@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MYIOVE Khmer - Topup Game</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700;800&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Kantumruy Pro', sans-serif; background-color: #211915; }
+    .gold-card { background-color: #f59e0b; }
+    .active-pkg { background-color: #f59e0b !important; color: #000 !important; font-weight: 800; border-color: #fbbf24 !important; }
+    .font-inter { font-family: 'Inter', sans-serif; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #1b1410; border-radius: 8px; }
+    ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 8px; }
+  </style>
+</head>
+<body class="text-white min-h-screen p-3 sm:p-4 pb-24 relative">
+
+  <!-- Header Bar -->
+  <div class="max-w-md mx-auto mb-3 text-center">
+    <h1 class="text-2xl font-black tracking-wide text-amber-400 drop-shadow uppercase">MYIOVE Khmer</h1>
+    <p class="text-xs text-gray-400 mt-0.5">ហ្គេមសម្រាប់បញ្ចូលទឹកប្រាក់</p>
+  </div>
+
+  <!-- User Account & Balance Bar -->
+  <div class="max-w-md mx-auto mb-4 bg-[#2d221c] border border-amber-500/40 rounded-2xl p-3.5 flex flex-col space-y-3 shadow-xl">
+    <div class="flex items-center justify-between border-b border-amber-900/40 pb-2.5">
+      <div class="flex items-center space-x-2.5">
+        <div class="w-8 h-8 rounded-full bg-amber-500 text-black flex items-center justify-center font-black text-xs">👤</div>
+        <div>
+          <p id="user-display-name" class="text-xs font-bold text-amber-300">មិនទាន់ចូលគណនី</p>
+          <p id="user-display-contact" class="text-[10px] text-gray-400">សូមចុះឈ្មោះដើម្បីទិញ</p>
+        </div>
+      </div>
+      <div>
+        <button onclick="openAuthModal()" id="btn-login-trigger" class="text-[11px] bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500 hover:text-black font-bold px-3 py-1 rounded-lg transition">
+          ចុះឈ្មោះ / ចូល
+        </button>
+        <button onclick="handleLogout()" id="btn-logout-trigger" class="text-[11px] text-red-400 hover:text-red-300 font-bold px-2 py-1 rounded-lg hidden">
+          ចាកចេញ
+        </button>
+      </div>
+    </div>
+
+    <!-- Balance Display -->
+    <div class="flex items-center justify-between pt-0.5">
+      <div class="flex items-center space-x-2.5">
+        <div class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-base">👛</div>
+        <div>
+          <p class="text-[10px] text-gray-400 font-medium">សមតុល្យលុយរបស់អ្នក</p>
+          <p class="text-base font-black text-amber-400 font-inter leading-tight">
+            $<span id="user-balance-display">0.00</span> <span class="text-[10px] text-gray-300 font-normal">USD</span>
+          </p>
+        </div>
+      </div>
+      <button onclick="openDepositModal()" class="bg-amber-500 hover:bg-amber-400 text-neutral-950 font-extrabold text-xs px-3.5 py-1.5 rounded-xl shadow-lg transition active:scale-95 flex items-center space-x-1 border border-amber-300">
+        <span>➕</span>
+        <span>ដាក់លុយ</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Promo Banner -->
+  <div id="promo-banner" class="max-w-md mx-auto mb-4 bg-gradient-to-r from-red-600 to-amber-600 text-white p-2.5 rounded-xl text-center text-xs font-bold hidden shadow-lg animate-pulse">
+    🔥 កំពុងមានប្រូម៉ូសិនបញ្ចុះតម្លៃ <span id="banner-discount-percent">0%</span> គ្រប់មុខទំនិញទាំងអស់!
+  </div>
+
+  <!-- Grid Game Cards -->
+  <div class="max-w-md mx-auto grid grid-cols-2 gap-3 sm:gap-4">
+    <div onclick="openGameModal('mlbb', 'MOBILE LEGENDS', './mlbb.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
+      <div class="w-full aspect-square rounded-xl overflow-hidden shadow bg-neutral-900">
+        <img src="./mlbb.png" onerror="this.src='./mlbb.jpg'" class="w-full h-full object-cover" alt="MLBB">
+      </div>
+      <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">MOBILE LEGENDS</span>
+      <button class="w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
+    </div>
+
+    <div onclick="openGameModal('freefire', 'FREE FIRE', './freefire.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
+      <div class="w-full aspect-square rounded-xl overflow-hidden shadow bg-neutral-900">
+        <img src="./freefire.png" onerror="this.src='./freefire.jpg'" class="w-full h-full object-cover" alt="Free Fire">
+      </div>
+      <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">FREE FIRE</span>
+      <button class="w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
+    </div>
+
+    <div onclick="openGameModal('pubg', 'PUBG MOBILE', './pubg.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
+      <div class="w-full aspect-square rounded-xl overflow-hidden shadow bg-neutral-900">
+        <img src="./pubg.png" onerror="this.src='./pubg.jpg'" class="w-full h-full object-cover" alt="PUBG Mobile">
+      </div>
+      <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">PUBG MOBILE</span>
+      <button class="w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
+    </div>
+
+    <div onclick="openGameModal('roblox', 'ROBLOX', './roblox.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
+      <div class="w-full aspect-square rounded-xl overflow-hidden shadow bg-[#0055ff]">
+        <img src="./roblox.png" onerror="this.src='./roblox.jpg'" class="w-full h-full object-cover" alt="Roblox">
+      </div>
+      <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">ROBLOX</span>
+      <button class="w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
+    </div>
+  </div>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
+    <div class="w-full max-w-sm bg-[#2d221c] border border-amber-500/50 rounded-3xl p-5 relative shadow-2xl space-y-4">
+      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-bold">✕</button>
+      <div class="text-center">
+        <h3 class="font-black text-lg text-amber-400">ចុះឈ្មោះ / ចូលគណនី</h3>
+        <p class="text-xs text-gray-300 mt-0.5">សូមបំពេញព័ត៌មានខាងក្រោមមុនពេលទិញ</p>
+      </div>
+      <div class="space-y-3 text-xs">
+        <div>
+          <label class="block text-amber-300 font-bold mb-1">ឈ្មោះរបស់អ្នក</label>
+          <input type="text" id="reg-name" placeholder="ឧ. Sokha Gamer" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-amber-300 font-bold mb-1">Email ឬ លេខទូរសព្ទ</label>
+          <input type="text" id="reg-contact" placeholder="ឧ. 012345678 ឬ user@gmail.com" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
+        </div>
+        <div>
+          <label class="block text-amber-300 font-bold mb-1">ពាក្យសម្ងាត់ Password</label>
+          <input type="password" id="reg-pass" placeholder="បញ្ចូលពាក្យសម្ងាត់" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
+        </div>
+        <button onclick="handleRegister()" class="w-full bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs mt-2">
+          យល់ព្រម & ចូលគណនី ➔
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Deposit KHQR Modal -->
+  <div id="deposit-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
+    <div class="w-full max-w-sm sm:max-w-md bg-[#2d221c] border border-amber-500/50 rounded-3xl p-4 sm:p-5 relative shadow-2xl text-center">
+      <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold p-1">✕</button>
+      <h3 class="font-black text-lg text-amber-400 mb-1">ស្កេនបញ្ចូលទឹកប្រាក់ (KHQR)</h3>
+      <p class="text-xs text-gray-300 mb-4">ផ្ទេរប្រាក់រួច សូមផ្ញើវិក្កយបត្រទៅអេតមីនដើម្បីបញ្ចូលលុយជូន</p>
+      <div class="bg-white p-2.5 sm:p-3 rounded-2xl shadow-xl flex items-center justify-center">
+        <img src="./my-khqr.png" onerror="this.src='./my-khqr.jpg'" class="w-full h-auto rounded-xl object-contain max-h-[72vh] shadow" alt="My KHQR">
+      </div>
+    </div>
+  </div>
+
+  <!-- Game Order Modal -->
+  <div id="game-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
+    <div class="w-full max-w-md bg-[#2d221c] rounded-3xl p-5 border border-amber-600/40 relative shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+      <button onclick="closeGameModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+      <div class="flex items-center space-x-3 pb-2 border-b border-amber-900/60">
+        <div id="modal-game-icon" class="w-10 h-10 rounded-xl overflow-hidden bg-amber-500 flex items-center justify-center font-bold text-xl text-black"></div>
+        <div>
+          <h3 id="modal-game-name" class="font-extrabold text-base text-amber-400">ហ្គេម</h3>
+          <p class="text-[11px] text-gray-400">ជ្រើសកញ្ចប់ & បញ្ចូល ID</p>
+        </div>
+      </div>
+      <div>
+        <label class="text-xs text-amber-300 font-bold block mb-1.5">១. ជ្រើសរើសកញ្ចប់</label>
+        <div class="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto pr-1" id="package-grid"></div>
+      </div>
+      <div>
+        <label id="uid-label" class="text-xs text-amber-300 font-bold block mb-1.5">២. បញ្ចូល Game ID</label>
+        <input type="text" id="uid-input" placeholder="បញ្ចូល Player ID" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
+      </div>
+      <div class="pt-2 border-t border-amber-900/40 flex justify-between items-center sticky bottom-0 bg-[#2d221c]">
+        <div>
+          <span class="text-[10px] text-gray-400 block">តម្លៃសរុប</span>
+          <span id="price-tag" class="text-xl font-black text-amber-400 font-inter">$0.00</span>
+        </div>
+        <button id="btn-submit-order" onclick="handlePurchase()" class="bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs">
+          ទិញភ្លាមៗ ➔
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Telegram Contact Button -->
+  <a href="https://t.me/Bunsaleangraksa" target="_blank" rel="noopener noreferrer" title="ទាក់ទងអេតមីន" class="fixed bottom-5 right-5 w-13 h-13 p-3 bg-sky-500 hover:bg-sky-400 text-white rounded-full flex items-center justify-center shadow-2xl transition duration-200 active:scale-90 z-40 border-2 border-white/20">
+    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
+      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
+    </svg>
+  </a>
+
+  <script>
+    let activeSession = JSON.parse(localStorage.getItem('myiove_active_session') || 'null');
+    let discountPercent = parseFloat(localStorage.getItem('myiove_discount_percent') || '0');
+
+    function getUsersDatabase() { return JSON.parse(localStorage.getItem('myiove_users_db') || '{}'); }
+    function saveUsersDatabase(db) { localStorage.setItem('myiove_users_db', JSON.stringify(db)); }
+
+    function updateBalanceUI() {
+      const promoBanner = document.getElementById('promo-banner');
+      if (discountPercent > 0) {
+        promoBanner.classList.remove('hidden');
+        document.getElementById('banner-discount-percent').innerText = `${discountPercent}%`;
+      } else {
+        promoBanner.classList.add('hidden');
+      }
+
+      if (activeSession) {
+        const usersDb = getUsersDatabase();
+        const user = usersDb[activeSession.contact] || activeSession;
+        document.getElementById('user-display-name').innerText = user.name;
+        document.getElementById('user-display-contact').innerText = user.contact;
+        document.getElementById('user-balance-display').innerText = Number(user.balance || 0).toFixed(2);
+        document.getElementById('btn-login-trigger').classList.add('hidden');
+        document.getElementById('btn-logout-trigger').classList.remove('hidden');
+      } else {
+        document.getElementById('user-display-name').innerText = 'មិនទាន់ចូលគណនី';
+        document.getElementById('user-display-contact').innerText = 'សូមចុះឈ្មោះដើម្បីទិញ';
+        document.getElementById('user-balance-display').innerText = '0.00';
+        document.getElementById('btn-login-trigger').classList.remove('hidden');
+        document.getElementById('btn-logout-trigger').classList.add('hidden');
+      }
+    }
+
+    function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
+    function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
+
+    function handleRegister() {
+      const name = document.getElementById('reg-name').value.trim();
+      const contact = document.getElementById('reg-contact').value.trim();
+      const pass = document.getElementById('reg-pass').value.trim();
+
+      if (!name || !contact || !pass) return alert('សូមបំពេញឈ្មោះ, Email/លេខទូរសព្ទ និង ពាក្យសម្ងាត់ឱ្យបានគ្រប់គ្រាន់!');
+
+      const usersDb = getUsersDatabase();
+      if (!usersDb[contact]) {
+        usersDb[contact] = { name, contact, pass, balance: 0.00 };
+      } else {
+        usersDb[contact].name = name;
+      }
+      saveUsersDatabase(usersDb);
+
+      activeSession = usersDb[contact];
+      localStorage.setItem('myiove_active_session', JSON.stringify(activeSession));
+
+      closeAuthModal();
+      updateBalanceUI();
+      alert(`🎉 ស្វាគមន៍ការចូលមកកាន់ MYIOVE Khmer, ${name}!\nសមតុល្យបច្ចុប្បន្នរបស់អ្នកគឺ: $${Number(activeSession.balance || 0).toFixed(2)} USD`);
+    }
+
+    function handleLogout() {
+      if (!confirm('តើអ្នកចង់ចាកចេញពីគណនីនេះមែនទេ?')) return;
+      localStorage.removeItem('myiove_active_session');
+      activeSession = null;
+      updateBalanceUI();
+    }
+
+    const gameDatabase = {
+      mlbb: {
+        name: 'MOBILE LEGENDS',
+        iconEmoji: '💎',
+        placeholder: 'បញ្ចូល User ID (ឧ. 12345678)',
+        packages: [
+          { name: '55 Diamonds', price: 0.95 },
+          { name: '86 Diamonds', price: 1.45 },
+          { name: '110 Diamonds', price: 1.75 },
+          { name: '142 Diamonds', price: 2.39 },
+          { name: '165 Diamonds', price: 2.65 },
+          { name: '172 Diamonds', price: 2.79 },
+          { name: '220 Diamonds', price: 3.45 },
+          { name: '257 Diamonds', price: 3.79 },
+          { name: '275 Diamonds', price: 3.99 },
+          { name: '343 Diamonds', price: 4.99 },
+          { name: '429 Diamonds', price: 6.40 },
+          { name: '514 Diamonds', price: 7.50 },
+          { name: '565 Diamonds', price: 8.39 },
+          { name: '600 Diamonds', price: 8.59 },
+          { name: '706 Diamonds', price: 9.89 },
+          { name: '761 Diamonds', price: 10.49 },
+          { name: '878 Diamonds', price: 12.49 },
+          { name: '963 Diamonds', price: 14.00 },
+          { name: '1049 Diamonds', price: 15.00 },
+          { name: '1135 Diamonds', price: 16.00 },
+          { name: '1220 Diamonds', price: 17.39 },
+          { name: '1412 Diamonds', price: 19.90 },
+          { name: '1755 Diamonds', price: 24.99 },
+          { name: '2195 Diamonds', price: 29.79 },
+          { name: '2901 Diamonds', price: 41.00 },
+          { name: '3688 Diamonds', price: 48.76 },
+          { name: '4394 Diamonds', price: 59.20 },
+          { name: '5100 Diamonds', price: 68.00 },
+          { name: '5532 Diamonds', price: 74.44 },
+          { name: '6238 Diamonds', price: 85.00 },
+          { name: '7727 Diamonds', price: 105.00 },
+          { name: '9288 Diamonds', price: 125.00 }
+        ]
+      },
+      freefire: {
+        name: 'FREE FIRE',
+        iconEmoji: '💎',
+        placeholder: 'បញ្ចូល Player ID (UID)',
+        packages: [
+          { name: '100 Diamonds', price: 0.99 },
+          { name: '200 Diamonds', price: 1.98 },
+          { name: '310 Diamonds', price: 2.89 },
+          { name: '520 Diamonds', price: 4.68 },
+          { name: '1060 Diamonds', price: 9.92 },
+          { name: '2180 Diamonds', price: 20.04 },
+          { name: '5600 Diamonds', price: 49.60 },
+          { name: '11500 Diamonds', price: 102.17 }
+        ]
+      },
+      pubg: {
+        name: 'PUBG MOBILE',
+        iconEmoji: '💵',
+        placeholder: 'បញ្ចូល Character ID (UID)',
+        packages: [
+          { name: '60 UC', price: 0.96 },
+          { name: '180 UC', price: 2.88 },
+          { name: '325 UC', price: 4.86 },
+          { name: '660 UC', price: 9.73 },
+          { name: '720 UC', price: 10.69 },
+          { name: '1800 UC', price: 24.31 },
+          { name: '2460 UC', price: 34.04 },
+          { name: '3850 UC', price: 48.61 },
+          { name: '5650 UC', price: 72.92 },
+          { name: '8100 UC', price: 97.22 },
+          { name: '16200 UC', price: 194.44 },
+          { name: '24300 UC', price: 291.66 }
+        ]
+      },
+      roblox: {
+        name: 'ROBLOX',
+        iconEmoji: '🪙',
+        placeholder: 'បញ្ចូល Roblox Username ឬ ID',
+        packages: [
+          { name: '80 🪙', price: 1.00 },
+          { name: '160 🪙', price: 2.00 },
+          { name: '240 🪙', price: 3.00 },
+          { name: '400 🪙', price: 4.85 },
+          { name: '800 🪙', price: 9.00 },
+          { name: '1700 🪙', price: 18.00 },
+          { name: '4500 🪙', price: 45.90 },
+          { name: '10000 🪙', price: 75.00 },
+          { name: '22500 🪙', price: 150.00 }
+        ]
+      }
+    };
+
+    let selectedOrder = { gameKey: 'mlbb', packageName: '', price: 0, uid: '' };
+
+    function openDepositModal() { document.getElementById('deposit-modal').classList.remove('hidden'); }
+    function closeDepositModal() { document.getElementById('deposit-modal').classList.add('hidden'); }
+
+    function openGameModal(gameKey, gameTitle, imgSrc) {
+      selectedOrder.gameKey = gameKey;
+      const gameData = gameDatabase[gameKey];
+      discountPercent = parseFloat(localStorage.getItem('myiove_discount_percent') || '0');
+
+      document.getElementById('modal-game-name').innerText = gameTitle;
+      const iconContainer = document.getElementById('modal-game-icon');
+      iconContainer.innerHTML = imgSrc ? `<img src="${imgSrc}" class="w-full h-full object-cover">` : `🎮`;
+
+      const uidLabel = document.getElementById('uid-label');
+      const uidInput = document.getElementById('uid-input');
+      uidLabel.innerText = `២. ${gameData.placeholder}`;
+      uidInput.placeholder = gameData.placeholder;
+      uidInput.value = '';
+
+      const grid = document.getElementById('package-grid');
+      grid.innerHTML = '';
+      
+      gameData.packages.forEach((pkg, index) => {
+        const isFirst = index === 0;
+        const finalPrice = discountPercent > 0 
+          ? pkg.price * (1 - discountPercent / 100) 
+          : pkg.price;
+
+        const btn = document.createElement('div');
+        btn.className = `pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs relative ${
+          isFirst ? 'active-pkg' : 'bg-[#1b1410] text-gray-200 border-amber-900/60 font-medium'
+        }`;
+        
+        btn.innerHTML = `
+          <div class="flex items-center space-x-2">
+            <span class="text-base">${gameData.iconEmoji || '🎮'}</span>
+            <div>
+              <div class="flex items-baseline space-x-1.5">
+                <p class="font-extrabold text-amber-400 font-inter text-sm">$${finalPrice.toFixed(2)}</p>
+                ${discountPercent > 0 ? `<p class="line-through text-gray-500 text-[10px] font-inter">$${pkg.price.toFixed(2)}</p>` : ''}
+              </div>
+              <p class="text-[11px] text-gray-300 font-medium leading-tight">${pkg.name}</p>
+            </div>
+          </div>
+        `;
+
+        btn.onclick = () => {
+          selectedOrder.packageName = pkg.name;
+          selectedOrder.price = finalPrice;
+          document.getElementById('price-tag').innerText = `$${finalPrice.toFixed(2)}`;
+          document.querySelectorAll('.pkg-btn').forEach(b => {
+            b.className = 'pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs bg-[#1b1410] text-gray-200 border-amber-900/60 font-medium';
+          });
+          btn.className = 'pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs active-pkg';
+        };
+        grid.appendChild(btn);
+
+        if (isFirst) {
+          selectedOrder.packageName = pkg.name;
+          selectedOrder.price = finalPrice;
+          document.getElementById('price-tag').innerText = `$${finalPrice.toFixed(2)}`;
+        }
+      });
+
+      document.getElementById('game-modal').classList.remove('hidden');
+    }
+
+    function closeGameModal() { document.getElementById('game-modal').classList.add('hidden'); }
+
+    async function sendOrderToProviderAPI(orderPayload) {
+      const apiConfig = JSON.parse(localStorage.getItem('myiove_provider_api') || '{}');
+      if (!apiConfig.url || !apiConfig.key) {
+        return { success: true, mode: 'OFFLINE_SAVED' };
+      }
+
+      try {
+        const response = await fetch(apiConfig.url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiConfig.key}`
+          },
+          body: JSON.stringify({
+            api_key: apiConfig.key,
+            secret: apiConfig.secret || '',
+            order_id: orderPayload.orderId,
+            game: orderPayload.game,
+            user_id: orderPayload.uid,
+            product_name: orderPayload.packageName,
+            amount: orderPayload.price
+          })
+        });
+
+        const result = await response.json().catch(() => ({}));
+        return { success: response.ok, data: result };
+      } catch (err) {
+        return { success: false, error: err.message };
+      }
+    }
+
+    async function handlePurchase() {
+      if (!activeSession) {
+        alert('⚠️ សូមចុះឈ្មោះ ឬចូលគណនីរបស់អ្នកជាមុនសិន!');
+        closeGameModal();
+        openAuthModal();
+        return;
+      }
+
+      const usersDb = getUsersDatabase();
+      const currentUser = usersDb[activeSession.contact];
+
+      if (!currentUser || (currentUser.balance || 0) < selectedOrder.price) {
+        alert(`⚠️ សមតុល្យលុយក្នុងគណនីរបស់អ្នកគឺ: $${Number(currentUser?.balance || 0).toFixed(2)} USD មិនគ្រប់គ្រាន់ទេ!\nសូមស្កេន KHQR ដើម្បីឱ្យអេតមីនបញ្ចូលលុយឱ្យជាមុនសិន។`);
+        closeGameModal();
+        openDepositModal();
+        return;
+      }
+
+      const uid = document.getElementById('uid-input').value.trim();
+      if (!uid) return alert('សូមបញ្ចូល Game ID របស់អ្នកជាមុនសិន!');
+
+      const btn = document.getElementById('btn-submit-order');
+      btn.innerText = 'កំពុងកាត់អីវ៉ាន់ពី API...';
+      btn.disabled = true;
+
+      currentUser.balance -= selectedOrder.price;
+      saveUsersDatabase(usersDb);
+      updateBalanceUI();
+
+      const orderId = 'ORD' + Math.floor(100000 + Math.random() * 900000);
+      const orderData = {
+        orderId: orderId,
+        game: selectedOrder.gameKey,
+        packageName: selectedOrder.packageName,
+        price: selectedOrder.price,
+        uid: uid,
+        buyerName: currentUser.name,
+        buyerContact: currentUser.contact,
+        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+
+      const apiResult = await sendOrderToProviderAPI(orderData);
+      orderData.apiStatus = apiResult.success ? 'SUCCESS' : 'PENDING';
+
+      const orders = JSON.parse(localStorage.getItem('gametopup_orders') || '[]');
+      orders.unshift(orderData);
+      localStorage.setItem('gametopup_orders', JSON.stringify(orders));
+
+      btn.innerText = 'ទិញភ្លាមៗ ➔';
+      btn.disabled = false;
+      closeGameModal();
+
+      alert(`🎉 ការទិញបានជោគជ័យ!\n\n• អ្នកទិញ: ${currentUser.name}\n• លេខកូដ: ${orderId}\n• ហ្គេម: ${selectedOrder.gameKey.toUpperCase()}\n• កញ្ចប់: ${selectedOrder.packageName}\n• ID: ${uid}\n• កាត់ប្រាក់: $${selectedOrder.price.toFixed(2)}\n• សមតុល្យនៅសល់: $${currentUser.balance.toFixed(2)}\n\nប្រព័ន្ធបានបញ្ជូន Order ទៅកាត់យកអីវ៉ាន់ពី API ដើមជោគជ័យ!`);
+    }
+
+    updateBalanceUI();
+  </script>
+</body>
+</html>
