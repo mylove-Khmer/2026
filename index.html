@@ -18,14 +18,27 @@
 </head>
 <body class="text-white min-h-screen p-3 sm:p-4 pb-24 relative">
 
-  <!-- ================= HEADER BAR ជាមួយ LOGO ================= -->
-  <div class="max-w-md mx-auto mb-4 text-center flex flex-col items-center justify-center">
-    <!-- រូបភាព Logo -->
-    <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full p-1 bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 shadow-lg shadow-amber-500/30 mb-2">
-      <img src="./logo.png" onerror="this.src='./logo.jpg'" alt="MYIOVE Logo" class="w-full h-full object-cover rounded-full bg-neutral-900 border-2 border-neutral-950">
+  <!-- Language Switcher Bar (ជ្រុងខាងលើ) -->
+  <div class="max-w-md mx-auto flex justify-end mb-2">
+    <div class="bg-[#2d221c] border border-amber-900/60 p-1 rounded-full flex items-center space-x-1 shadow-md">
+      <button onclick="changeLanguage('km')" id="lang-btn-km" class="px-2.5 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow">
+        🇰🇭 ខ្មែរ
+      </button>
+      <button onclick="changeLanguage('en')" id="lang-btn-en" class="px-2.5 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition">
+        🇬🇧 EN
+      </button>
     </div>
-    <h1 class="text-2xl font-black tracking-wide text-amber-400 drop-shadow uppercase">MYIOVE Khmer</h1>
-    <p class="text-xs text-gray-400 mt-0.5">ជ្រើសរើសហ្គេម & កញ្ចប់ពេជ្រដើម្បីទូទាត់ប្រាក់</p>
+  </div>
+
+  <!-- Header Bar (Logo ខាងឆ្វេងដៃ) -->
+  <div class="max-w-md mx-auto mb-4 flex items-center justify-center space-x-3">
+    <div class="w-14 h-14 rounded-2xl p-0.5 bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 shadow-md shadow-amber-500/20 flex-shrink-0">
+      <img src="./logo.png" onerror="this.src='./logo.jpg'" alt="Logo" class="w-full h-full object-cover rounded-2xl bg-neutral-900 border border-neutral-950">
+    </div>
+    <div class="text-left">
+      <h1 class="text-xl sm:text-2xl font-black tracking-wide text-amber-400 drop-shadow uppercase leading-tight">MYIOVE Khmer</h1>
+      <p id="t-subtitle" class="text-xs text-gray-400">ហាងបញ្ចូលពេជ្រ & កាក់ហ្គេមរហ័ស</p>
+    </div>
   </div>
 
   <!-- Grid Game Cards ទាំង ៤ -->
@@ -35,7 +48,7 @@
         <img src="./mlbb.png" onerror="this.src='./mlbb.jpg'" class="w-full h-full object-cover" alt="MLBB">
       </div>
       <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">MOBILE LEGENDS</span>
-      <button class="w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
+      <button class="t-topup-btn w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
     </div>
 
     <div onclick="openGameModal('freefire', 'FREE FIRE', './freefire.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
@@ -43,7 +56,7 @@
         <img src="./freefire.png" onerror="this.src='./freefire.jpg'" class="w-full h-full object-cover" alt="Free Fire">
       </div>
       <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">FREE FIRE</span>
-      <button class="w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
+      <button class="t-topup-btn w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
     </div>
 
     <div onclick="openGameModal('pubg', 'PUBG MOBILE', './pubg.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
@@ -51,7 +64,7 @@
         <img src="./pubg.png" onerror="this.src='./pubg.jpg'" class="w-full h-full object-cover" alt="PUBG Mobile">
       </div>
       <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">PUBG MOBILE</span>
-      <button class="w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
+      <button class="t-topup-btn w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
     </div>
 
     <div onclick="openGameModal('roblox', 'ROBLOX', './roblox.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
@@ -59,7 +72,7 @@
         <img src="./roblox.png" onerror="this.src='./roblox.jpg'" class="w-full h-full object-cover" alt="Roblox">
       </div>
       <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">ROBLOX</span>
-      <button class="w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
+      <button class="t-topup-btn w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
     </div>
   </div>
 
@@ -71,48 +84,44 @@
       <div class="flex items-center space-x-3 pb-2 border-b border-amber-900/60">
         <div id="modal-game-icon" class="w-10 h-10 rounded-xl overflow-hidden bg-amber-500 flex items-center justify-center font-bold text-xl text-black"></div>
         <div>
-          <h3 id="modal-game-name" class="font-extrabold text-base text-amber-400">ហ្គេម</h3>
-          <p class="text-[11px] text-gray-400">ជ្រើសកញ្ចប់ពេជ្រ & បញ្ចូល ID</p>
+          <h3 id="modal-game-name" class="font-extrabold text-base text-amber-400">Game</h3>
+          <p id="t-modal-subtitle" class="text-[11px] text-gray-400">ជ្រើសកញ្ចប់ពេជ្រ & បញ្ចូល ID</p>
         </div>
       </div>
 
-      <!-- តារាងកញ្ចប់ពេជ្រ -->
       <div>
-        <label class="text-xs text-amber-300 font-bold block mb-1.5">១. ជ្រើសរើសចំនួនពេជ្រ</label>
+        <label id="t-step1-label" class="text-xs text-amber-300 font-bold block mb-1.5">១. ជ្រើសរើសចំនួនពេជ្រ</label>
         <div class="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto pr-1" id="package-grid"></div>
       </div>
 
-      <!-- បញ្ចូល Game ID -->
       <div>
         <label id="uid-label" class="text-xs text-amber-300 font-bold block mb-1.5">២. បញ្ចូល Game ID</label>
-        <input type="text" id="uid-input" placeholder="បញ្ចូល Player ID" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
+        <input type="text" id="uid-input" placeholder="Enter Player ID" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
       </div>
 
-      <!-- តម្លៃ & ប៊ូតុងស្កេន -->
       <div class="pt-2 border-t border-amber-900/40 flex justify-between items-center sticky bottom-0 bg-[#2d221c]">
         <div>
-          <span class="text-[10px] text-gray-400 block">តម្លៃពេជ្រសរុប</span>
+          <span id="t-price-label" class="text-[10px] text-gray-400 block">តម្លៃពេជ្រសរុប</span>
           <span id="price-tag" class="text-xl font-black text-amber-400 font-inter">$0.50</span>
         </div>
-        <button onclick="openPaymentModal()" class="bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs">
+        <button id="t-scan-btn" onclick="openPaymentModal()" class="bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs">
           ស្កេនទូទាត់ KHQR ➔
         </button>
       </div>
     </div>
   </div>
 
-  <!-- POP-UP ទី ២: ផ្ទាំងបង្ហាញរូបភាព KHQR កាត់គែមសខាងក្រោមចោល -->
+  <!-- POP-UP ទី ២: ផ្ទាំងបង្ហាញរូបភាព KHQR ជាក់លាក់ -->
   <div id="payment-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
     <div class="w-full max-w-[340px] bg-[#2d221c] border border-amber-500/50 rounded-3xl p-4 relative shadow-2xl text-center">
       <button onclick="closePaymentModal()" class="absolute top-3.5 right-3.5 text-gray-400 hover:text-white text-2xl font-bold p-1 z-10">✕</button>
       
-      <h3 class="font-black text-base text-amber-400 mb-0.5">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
-      <p class="text-[11px] text-gray-300 mb-3">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
+      <h3 id="t-pay-title" class="font-black text-base text-amber-400 mb-0.5">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
+      <p id="t-pay-subtitle" class="text-[11px] text-gray-300 mb-3">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
 
-      <!-- ព័ត៌មានការទិញ -->
       <div class="bg-black/50 border border-amber-900/60 rounded-xl p-2.5 mb-3 text-left text-xs space-y-1">
         <div class="flex justify-between items-center">
-          <span class="text-gray-400 font-bold">កញ្ចប់ពេជ្រ:</span>
+          <span id="t-row-pkg" class="text-gray-400 font-bold">កញ្ចប់ពេជ្រ:</span>
           <span id="khqr-pkg-name" class="font-bold text-amber-300">-</span>
         </div>
         <div class="flex justify-between items-center">
@@ -120,81 +129,148 @@
           <span id="khqr-player-id" class="font-mono font-bold text-sky-400 select-all">-</span>
         </div>
         <div class="flex justify-between items-center pt-1 border-t border-amber-900/40">
-          <span class="text-gray-300 font-bold">ទឹកប្រាក់ត្រូវផ្ទេរ:</span>
+          <span id="t-row-price" class="text-gray-300 font-bold">ទឹកប្រាក់ត្រូវផ្ទេរ:</span>
           <span id="khqr-final-price" class="font-black text-green-400 font-inter text-sm">$0.00 USD</span>
         </div>
       </div>
 
-      <!-- Frame រូបភាព QR ពេញទំហំ និងកាត់គែមសខាងក្រោមចោលស្អាត -->
       <div class="w-full flex items-center justify-center overflow-hidden rounded-2xl shadow-xl bg-transparent">
         <img id="display-qr-img" src="" class="w-full h-auto object-cover rounded-2xl block -mb-1.5" alt="KHQR Payment">
       </div>
 
-      <!-- ប៊ូតុងផ្ញើវិក្កយបត្រ (Telegram: @MeiKhmer) -->
-      <a href="https://t.me/MeiKhmer" target="_blank" class="w-full mt-3 bg-sky-500 hover:bg-sky-400 text-white py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5 shadow-lg transition">
+      <a id="t-send-slip-btn" href="https://t.me/MeiKhmer" target="_blank" class="w-full mt-3 bg-sky-500 hover:bg-sky-400 text-white py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5 shadow-lg transition">
         <span>ផ្ញើវិក្កយបត្រទៅអេតមីន (@MeiKhmer)</span>
       </a>
     </div>
   </div>
 
-  <!-- Floating Telegram Quick Chat Button (Telegram: @MeiKhmer) -->
-  <a href="https://t.me/MeiKhmer" target="_blank" rel="noopener noreferrer" title="ទាក់ទងអេតមីន" class="fixed bottom-5 right-5 w-13 h-13 p-3 bg-sky-500 hover:bg-sky-400 text-white rounded-full flex items-center justify-center shadow-2xl transition duration-200 active:scale-90 z-40 border-2 border-white/20">
+  <!-- Floating Telegram Button -->
+  <a href="https://t.me/MeiKhmer" target="_blank" rel="noopener noreferrer" title="Telegram Admin" class="fixed bottom-5 right-5 w-13 h-13 p-3 bg-sky-500 hover:bg-sky-400 text-white rounded-full flex items-center justify-center shadow-2xl transition duration-200 active:scale-90 z-40 border-2 border-white/20">
     <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
       <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
     </svg>
   </a>
 
   <script>
+    let currentLang = localStorage.getItem('myiove_lang') || 'km';
+
+    // វចនានុក្រម ២ ភាសា (Khmer & English)
+    const i18n = {
+      km: {
+        subtitle: "ហាងបញ្ចូលពេជ្រ & កាក់ហ្គេមរហ័ស",
+        topupBtn: "TOPUP",
+        modalSubtitle: "ជ្រើសកញ្ចប់ពេជ្រ & បញ្ចូល ID",
+        step1: "១. ជ្រើសរើសចំនួនពេជ្រ",
+        step2Prefix: "២. បញ្ចូល ",
+        enterUidAlert: "សូមបញ្ចូល Game ID របស់អ្នកជាមុនសិន!",
+        priceLabel: "តម្លៃពេជ្រសរុប",
+        scanBtn: "ស្កេនទូទាត់ KHQR ➔",
+        payTitle: "ស្កេនទូទាត់ប្រាក់ (KHQR)",
+        paySubtitle: "ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)",
+        rowPkg: "កញ្ចប់ពេជ្រ:",
+        rowPrice: "ទឹកប្រាក់ត្រូវផ្ទេរ:",
+        sendSlip: "ផ្ញើវិក្កយបត្រទៅអេតមីន (@MeiKhmer)",
+        unitDiamond: "ពេជ្រ 💎"
+      },
+      en: {
+        subtitle: "Fast Game Diamond & Coin Top-up Store",
+        topupBtn: "TOP UP",
+        modalSubtitle: "Select Package & Enter ID",
+        step1: "1. Select Diamond Package",
+        step2Prefix: "2. Enter ",
+        enterUidAlert: "Please enter your Game ID first!",
+        priceLabel: "Total Price",
+        scanBtn: "Scan KHQR to Pay ➔",
+        payTitle: "Scan to Pay (KHQR)",
+        paySubtitle: "Supported by all Banks & Bakong App",
+        rowPkg: "Package:",
+        rowPrice: "Amount to Pay:",
+        sendSlip: "Send Receipt to Admin (@MeiKhmer)",
+        unitDiamond: "Diamonds 💎"
+      }
+    };
+
     const diamondPackages = [
-      { name: '100 ពេជ្រ 💎', price: 0.50, fileKey: '0.5' },
-      { name: '110 ពេជ្រ 💎', price: 1.00, fileKey: '1' },
-      { name: '250 ពេជ្រ 💎', price: 2.00, fileKey: '2' },
-      { name: '350 ពេជ្រ 💎', price: 3.00, fileKey: '3' },
-      { name: '550 ពេជ្រ 💎', price: 5.00, fileKey: '5' },
-      { name: '1100 ពេជ្រ 💎', price: 10.00, fileKey: '10' },
-      { name: '1600 ពេជ្រ 💎', price: 15.00, fileKey: '15' },
-      { name: '2500 ពេជ្រ 💎', price: 20.00, fileKey: '20' },
-      { name: '3200 ពេជ្រ 💎', price: 30.00, fileKey: '30' },
-      { name: '6000 ពេជ្រ 💎', price: 50.00, fileKey: '50' }
+      { amount: 100, price: 0.50, fileKey: '0.5' },
+      { amount: 110, price: 1.00, fileKey: '1' },
+      { amount: 250, price: 2.00, fileKey: '2' },
+      { amount: 350, price: 3.00, fileKey: '3' },
+      { amount: 550, price: 5.00, fileKey: '5' },
+      { amount: 1100, price: 10.00, fileKey: '10' },
+      { amount: 1600, price: 15.00, fileKey: '15' },
+      { amount: 2500, price: 20.00, fileKey: '20' },
+      { amount: 3200, price: 30.00, fileKey: '30' },
+      { amount: 6000, price: 50.00, fileKey: '50' }
     ];
 
     const gameDatabase = {
-      mlbb: { name: 'MOBILE LEGENDS', placeholder: 'User ID (ឧ. 12345678)' },
-      freefire: { name: 'FREE FIRE', placeholder: 'Player ID (UID)' },
-      pubg: { name: 'PUBG MOBILE', placeholder: 'Character ID (UID)' },
-      roblox: { name: 'ROBLOX', placeholder: 'Roblox Username ឬ ID' }
+      mlbb: { name: 'MOBILE LEGENDS', placeholderKm: 'User ID (ឧ. 12345678)', placeholderEn: 'User ID (e.g. 12345678)' },
+      freefire: { name: 'FREE FIRE', placeholderKm: 'Player ID (UID)', placeholderEn: 'Player ID (UID)' },
+      pubg: { name: 'PUBG MOBILE', placeholderKm: 'Character ID (UID)', placeholderEn: 'Character ID (UID)' },
+      roblox: { name: 'ROBLOX', placeholderKm: 'Roblox Username ឬ ID', placeholderEn: 'Roblox Username or ID' }
     };
 
     let selectedOrder = {
       gameKey: 'freefire',
-      packageName: '100 ពេជ្រ 💎',
+      amount: 100,
       price: 0.50,
       fileKey: '0.5',
       uid: ''
     };
 
-    function openGameModal(gameKey, gameTitle, imgSrc) {
-      selectedOrder.gameKey = gameKey;
-      const gameData = gameDatabase[gameKey];
+    // មុខងារផ្លាស់ប្តូរភាសា
+    function changeLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('myiove_lang', lang);
+      applyLanguageUI();
+      if (!document.getElementById('game-modal').classList.contains('hidden')) {
+        renderPackageList();
+      }
+    }
 
-      document.getElementById('modal-game-name').innerText = gameTitle;
-      const iconContainer = document.getElementById('modal-game-icon');
-      iconContainer.innerHTML = imgSrc ? `<img src="${imgSrc}" class="w-full h-full object-cover">` : `🎮`;
+    function applyLanguageUI() {
+      const t = i18n[currentLang];
 
-      const uidLabel = document.getElementById('uid-label');
-      const uidInput = document.getElementById('uid-input');
-      uidLabel.innerText = `២. បញ្ចូល ${gameData.placeholder}`;
-      uidInput.placeholder = gameData.placeholder;
-      uidInput.value = '';
+      document.getElementById('t-subtitle').innerText = t.subtitle;
+      document.getElementById('t-modal-subtitle').innerText = t.modalSubtitle;
+      document.getElementById('t-step1-label').innerText = t.step1;
+      document.getElementById('t-price-label').innerText = t.priceLabel;
+      document.getElementById('t-scan-btn').innerText = t.scanBtn;
+      document.getElementById('t-pay-title').innerText = t.payTitle;
+      document.getElementById('t-pay-subtitle').innerText = t.paySubtitle;
+      document.getElementById('t-row-pkg').innerText = t.rowPkg;
+      document.getElementById('t-row-price').innerText = t.rowPrice;
+      document.getElementById('t-send-slip-btn').innerHTML = `<span>${t.sendSlip}</span>`;
 
+      document.querySelectorAll('.t-topup-btn').forEach(btn => btn.innerText = t.topupBtn);
+
+      const btnKm = document.getElementById('lang-btn-km');
+      const btnEn = document.getElementById('lang-btn-en');
+      if (currentLang === 'km') {
+        btnKm.className = 'px-2.5 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow';
+        btnEn.className = 'px-2.5 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition';
+      } else {
+        btnEn.className = 'px-2.5 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow';
+        btnKm.className = 'px-2.5 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition';
+      }
+
+      if (selectedOrder.gameKey) {
+        const game = gameDatabase[selectedOrder.gameKey];
+        const placeholder = currentLang === 'km' ? game.placeholderKm : game.placeholderEn;
+        document.getElementById('uid-label').innerText = `${t.step2Prefix}${placeholder}`;
+      }
+    }
+
+    function renderPackageList() {
       const grid = document.getElementById('package-grid');
       grid.innerHTML = '';
-      
+      const t = i18n[currentLang];
+
       diamondPackages.forEach((pkg, index) => {
-        const isFirst = index === 0;
+        const isSelected = pkg.fileKey === selectedOrder.fileKey;
         const btn = document.createElement('div');
         btn.className = `pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs relative ${
-          isFirst ? 'active-pkg' : 'bg-[#1b1410] text-gray-200 border-amber-900/60 font-medium'
+          isSelected ? 'active-pkg' : 'bg-[#1b1410] text-gray-200 border-amber-900/60 font-medium'
         }`;
         
         btn.innerHTML = `
@@ -202,13 +278,13 @@
             <span class="text-base">💎</span>
             <div>
               <p class="font-extrabold text-amber-400 font-inter text-sm">$${pkg.price.toFixed(2)}</p>
-              <p class="text-[11px] text-gray-300 font-medium leading-tight">${pkg.name}</p>
+              <p class="text-[11px] text-gray-300 font-medium leading-tight">${pkg.amount} ${t.unitDiamond}</p>
             </div>
           </div>
         `;
 
         btn.onclick = () => {
-          selectedOrder.packageName = pkg.name;
+          selectedOrder.amount = pkg.amount;
           selectedOrder.price = pkg.price;
           selectedOrder.fileKey = pkg.fileKey;
           document.getElementById('price-tag').innerText = `$${pkg.price.toFixed(2)}`;
@@ -218,15 +294,24 @@
           btn.className = 'pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs active-pkg';
         };
         grid.appendChild(btn);
-
-        if (isFirst) {
-          selectedOrder.packageName = pkg.name;
-          selectedOrder.price = pkg.price;
-          selectedOrder.fileKey = pkg.fileKey;
-          document.getElementById('price-tag').innerText = `$${pkg.price.toFixed(2)}`;
-        }
       });
+    }
 
+    function openGameModal(gameKey, gameTitle, imgSrc) {
+      selectedOrder.gameKey = gameKey;
+      const gameData = gameDatabase[gameKey];
+
+      document.getElementById('modal-game-name').innerText = gameTitle;
+      const iconContainer = document.getElementById('modal-game-icon');
+      iconContainer.innerHTML = imgSrc ? `<img src="${imgSrc}" class="w-full h-full object-cover">` : `🎮`;
+
+      const t = i18n[currentLang];
+      const placeholder = currentLang === 'km' ? gameData.placeholderKm : gameData.placeholderEn;
+      document.getElementById('uid-label').innerText = `${t.step2Prefix}${placeholder}`;
+      document.getElementById('uid-input').placeholder = placeholder;
+      document.getElementById('uid-input').value = '';
+
+      renderPackageList();
       document.getElementById('game-modal').classList.remove('hidden');
     }
 
@@ -234,11 +319,12 @@
 
     function openPaymentModal() {
       const uid = document.getElementById('uid-input').value.trim();
-      if (!uid) return alert('សូមបញ្ចូល Game ID របស់អ្នកជាមុនសិន!');
+      const t = i18n[currentLang];
+      if (!uid) return alert(t.enterUidAlert);
 
       selectedOrder.uid = uid;
 
-      document.getElementById('khqr-pkg-name').innerText = `${selectedOrder.gameKey.toUpperCase()} - ${selectedOrder.packageName}`;
+      document.getElementById('khqr-pkg-name').innerText = `${selectedOrder.gameKey.toUpperCase()} - ${selectedOrder.amount} ${t.unitDiamond}`;
       document.getElementById('khqr-player-id').innerText = selectedOrder.uid;
       document.getElementById('khqr-final-price').innerText = `$${selectedOrder.price.toFixed(2)} USD`;
 
@@ -269,6 +355,9 @@
     function closePaymentModal() {
       document.getElementById('payment-modal').classList.add('hidden');
     }
+
+    // Initialize Language UI on load
+    applyLanguageUI();
   </script>
 </body>
 </html>
