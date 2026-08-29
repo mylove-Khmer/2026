@@ -24,12 +24,7 @@
     <p class="text-xs text-gray-400 mt-0.5">ជ្រើសរើសហ្គេម & កញ្ចប់ពេជ្រដើម្បីទូទាត់ប្រាក់</p>
   </div>
 
-  <!-- Promo Banner -->
-  <div id="promo-banner" class="max-w-md mx-auto mb-4 bg-gradient-to-r from-red-600 to-amber-600 text-white p-2.5 rounded-xl text-center text-xs font-bold hidden shadow-lg animate-pulse">
-    🔥 កំពុងមានប្រូម៉ូសិនបញ្ចុះតម្លៃ <span id="banner-discount-percent">0%</span> គ្រប់មុខទំនិញទាំងអស់!
-  </div>
-
-  <!-- Grid Game Cards ទាំង ៤ (គ្មានប៊ូតុងដាក់លុយរំខាន) -->
+  <!-- Grid Game Cards ទាំង ៤ -->
   <div class="max-w-md mx-auto grid grid-cols-2 gap-3 sm:gap-4">
     <div onclick="openGameModal('mlbb', 'MOBILE LEGENDS', './mlbb.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
       <div class="w-full aspect-square rounded-xl overflow-hidden shadow bg-neutral-900">
@@ -64,7 +59,7 @@
     </div>
   </div>
 
-  <!-- POP-UP ទី ១: ផ្ទាំងជ្រើសរើសកញ្ចប់ពេជ្រ & បញ្ចូល Game ID -->
+  <!-- POP-UP ទី ១: ជ្រើសរើសកញ្ចប់ពេជ្រ & បញ្ចូល Game ID -->
   <div id="game-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
     <div class="w-full max-w-md bg-[#2d221c] rounded-3xl p-5 border border-amber-600/40 relative shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
       <button onclick="closeGameModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
@@ -77,23 +72,23 @@
         </div>
       </div>
 
-      <!-- បញ្ជីកញ្ចប់ពេជ្រ -->
+      <!-- តារាងកញ្ចប់ពេជ្រ -->
       <div>
-        <label class="text-xs text-amber-300 font-bold block mb-1.5">១. ជ្រើសរើសចំនួនពេជ្រ/កាក់</label>
+        <label class="text-xs text-amber-300 font-bold block mb-1.5">១. ជ្រើសរើសចំនួនពេជ្រ</label>
         <div class="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto pr-1" id="package-grid"></div>
       </div>
 
-      <!-- បញ្ចូល Game ID -->
+      <!-- បញ្ចូល ID -->
       <div>
         <label id="uid-label" class="text-xs text-amber-300 font-bold block mb-1.5">២. បញ្ចូល Game ID</label>
         <input type="text" id="uid-input" placeholder="បញ្ចូល Player ID" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
       </div>
 
-      <!-- តម្លៃ & ប៊ូតុងបើកមើល KHQR -->
+      <!-- តម្លៃ & ប៊ូតុងស្កេន -->
       <div class="pt-2 border-t border-amber-900/40 flex justify-between items-center sticky bottom-0 bg-[#2d221c]">
         <div>
           <span class="text-[10px] text-gray-400 block">តម្លៃពេជ្រសរុប</span>
-          <span id="price-tag" class="text-xl font-black text-amber-400 font-inter">$0.00</span>
+          <span id="price-tag" class="text-xl font-black text-amber-400 font-inter">$0.50</span>
         </div>
         <button onclick="openPaymentModal()" class="bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs">
           ស្កេនទូទាត់ KHQR ➔
@@ -102,7 +97,7 @@
     </div>
   </div>
 
-  <!-- POP-UP ទី ២: ផ្ទាំងបង្ហាញរូបភាព KHQR ផ្ទាល់ខ្លួនរបស់អ្នក ជាមួយតម្លៃពេជ្រដែលបានជ្រើស -->
+  <!-- POP-UP ទី ២: ផ្ទាំងបង្ហាញរូបភាព KHQR ជាក់លាក់តាមតម្លៃពេជ្រនីមួយៗ -->
   <div id="payment-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
     <div class="w-full max-w-sm bg-[#2d221c] border border-amber-500/50 rounded-3xl p-4 sm:p-5 relative shadow-2xl text-center">
       <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold p-1">✕</button>
@@ -110,7 +105,7 @@
       <h3 class="font-black text-lg text-amber-400 mb-1">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
       <p class="text-xs text-gray-300 mb-3">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
 
-      <!-- តារាងសង្ខេបតម្លៃពេជ្រដែលភ្ញៀវត្រូវស្កេនបង់ -->
+      <!-- ព័ត៌មានការទិញ -->
       <div class="bg-black/50 border border-amber-900/60 rounded-2xl p-3 mb-3 text-left space-y-1">
         <div class="flex justify-between items-center">
           <span class="text-xs text-gray-400 font-bold">កញ្ចប់ពេជ្រ:</span>
@@ -126,9 +121,9 @@
         </div>
       </div>
 
-      <!-- រូបភាព KHQR ផ្ទាល់ខ្លួនរបស់អ្នក (my-khqr.png) -->
-      <div class="bg-white p-2.5 rounded-2xl shadow-xl flex items-center justify-center">
-        <img src="./my-khqr.png" onerror="this.src='./my-khqr.jpg'" class="w-full h-auto rounded-xl object-contain max-h-[50vh] shadow" alt="My KHQR">
+      <!-- Frame រូបភាព QR Code តាមតម្លៃជាក់លាក់ (NOCH CHATHEA) -->
+      <div class="bg-white p-2 rounded-2xl shadow-xl flex items-center justify-center min-h-[260px]">
+        <img id="display-qr-img" src="./qr-0.5.jpg" onerror="this.src='./my-khqr.png'" class="w-full h-auto max-h-[55vh] rounded-xl object-contain" alt="KHQR Payment">
       </div>
 
       <!-- ប៊ូតុងផ្ញើវិក្កយបត្រ -->
@@ -138,7 +133,7 @@
     </div>
   </div>
 
-  <!-- Floating Telegram Quick Chat Button -->
+  <!-- Telegram Contact Button -->
   <a href="https://t.me/Bunsaleangraksa" target="_blank" rel="noopener noreferrer" title="ទាក់ទងអេតមីន" class="fixed bottom-5 right-5 w-13 h-13 p-3 bg-sky-500 hover:bg-sky-400 text-white rounded-full flex items-center justify-center shadow-2xl transition duration-200 active:scale-90 z-40 border-2 border-white/20">
     <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
       <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
@@ -146,113 +141,38 @@
   </a>
 
   <script>
-    let discountPercent = parseFloat(localStorage.getItem('myiove_discount_percent') || '0');
-
-    // បង្ហាញ Banner ប្រូម៉ូសិន (ប្រសិនបើអេតមីនបានដាក់)
-    const promoBanner = document.getElementById('promo-banner');
-    if (discountPercent > 0) {
-      promoBanner.classList.remove('hidden');
-      document.getElementById('banner-discount-percent').innerText = `${discountPercent}%`;
-    }
+    // តារាងតម្លៃពេជ្រទាំង ១០ កញ្ចប់ និងរូបភាព QR ត្រូវគ្នានីមួយៗ
+    const diamondPackages = [
+      { name: '100 ពេជ្រ 💎', price: 0.50, qrImage: './qr-0.5.jpg' },
+      { name: '110 ពេជ្រ 💎', price: 1.00, qrImage: './qr-1.jpg' },
+      { name: '250 ពេជ្រ 💎', price: 2.00, qrImage: './qr-2.jpg' },
+      { name: '350 ពេជ្រ 💎', price: 3.00, qrImage: './qr-3.jpg' },
+      { name: '550 ពេជ្រ 💎', price: 5.00, qrImage: './qr-5.jpg' },
+      { name: '1100 ពេជ្រ 💎', price: 10.00, qrImage: './qr-10.jpg' },
+      { name: '1600 ពេជ្រ 💎', price: 15.00, qrImage: './qr-15.jpg' },
+      { name: '2500 ពេជ្រ 💎', price: 20.00, qrImage: './qr-20.jpg' },
+      { name: '3200 ពេជ្រ 💎', price: 30.00, qrImage: './qr-30.jpg' },
+      { name: '6000 ពេជ្រ 💎', price: 50.00, qrImage: './qr-50.jpg' }
+    ];
 
     const gameDatabase = {
-      mlbb: {
-        name: 'MOBILE LEGENDS',
-        iconEmoji: '💎',
-        placeholder: 'បញ្ចូល User ID (ឧ. 12345678)',
-        packages: [
-          { name: '55 Diamonds', price: 0.95 },
-          { name: '86 Diamonds', price: 1.45 },
-          { name: '110 Diamonds', price: 1.75 },
-          { name: '142 Diamonds', price: 2.39 },
-          { name: '165 Diamonds', price: 2.65 },
-          { name: '172 Diamonds', price: 2.79 },
-          { name: '220 Diamonds', price: 3.45 },
-          { name: '257 Diamonds', price: 3.79 },
-          { name: '275 Diamonds', price: 3.99 },
-          { name: '343 Diamonds', price: 4.99 },
-          { name: '429 Diamonds', price: 6.40 },
-          { name: '514 Diamonds', price: 7.50 },
-          { name: '565 Diamonds', price: 8.39 },
-          { name: '600 Diamonds', price: 8.59 },
-          { name: '706 Diamonds', price: 9.89 },
-          { name: '761 Diamonds', price: 10.49 },
-          { name: '878 Diamonds', price: 12.49 },
-          { name: '963 Diamonds', price: 14.00 },
-          { name: '1049 Diamonds', price: 15.00 },
-          { name: '1135 Diamonds', price: 16.00 },
-          { name: '1220 Diamonds', price: 17.39 },
-          { name: '1412 Diamonds', price: 19.90 },
-          { name: '1755 Diamonds', price: 24.99 },
-          { name: '2195 Diamonds', price: 29.79 },
-          { name: '2901 Diamonds', price: 41.00 },
-          { name: '3688 Diamonds', price: 48.76 },
-          { name: '4394 Diamonds', price: 59.20 },
-          { name: '5100 Diamonds', price: 68.00 },
-          { name: '5532 Diamonds', price: 74.44 },
-          { name: '6238 Diamonds', price: 85.00 },
-          { name: '7727 Diamonds', price: 105.00 },
-          { name: '9288 Diamonds', price: 125.00 }
-        ]
-      },
-      freefire: {
-        name: 'FREE FIRE',
-        iconEmoji: '💎',
-        placeholder: 'បញ្ចូល Player ID (UID)',
-        packages: [
-          { name: '100 Diamonds', price: 0.99 },
-          { name: '200 Diamonds', price: 1.98 },
-          { name: '310 Diamonds', price: 2.89 },
-          { name: '520 Diamonds', price: 4.68 },
-          { name: '1060 Diamonds', price: 9.92 },
-          { name: '2180 Diamonds', price: 20.04 },
-          { name: '5600 Diamonds', price: 49.60 },
-          { name: '11500 Diamonds', price: 102.17 }
-        ]
-      },
-      pubg: {
-        name: 'PUBG MOBILE',
-        iconEmoji: '💵',
-        placeholder: 'បញ្ចូល Character ID (UID)',
-        packages: [
-          { name: '60 UC', price: 0.96 },
-          { name: '180 UC', price: 2.88 },
-          { name: '325 UC', price: 4.86 },
-          { name: '660 UC', price: 9.73 },
-          { name: '720 UC', price: 10.69 },
-          { name: '1800 UC', price: 24.31 },
-          { name: '2460 UC', price: 34.04 },
-          { name: '3850 UC', price: 48.61 },
-          { name: '5650 UC', price: 72.92 },
-          { name: '8100 UC', price: 97.22 },
-          { name: '16200 UC', price: 194.44 },
-          { name: '24300 UC', price: 291.66 }
-        ]
-      },
-      roblox: {
-        name: 'ROBLOX',
-        iconEmoji: '🪙',
-        placeholder: 'បញ្ចូល Roblox Username ឬ ID',
-        packages: [
-          { name: '80 🪙', price: 1.00 },
-          { name: '160 🪙', price: 2.00 },
-          { name: '240 🪙', price: 3.00 },
-          { name: '400 🪙', price: 4.85 },
-          { name: '800 🪙', price: 9.00 },
-          { name: '1700 🪙', price: 18.00 },
-          { name: '4500 🪙', price: 45.90 },
-          { name: '10000 🪙', price: 75.00 },
-          { name: '22500 🪙', price: 150.00 }
-        ]
-      }
+      mlbb: { name: 'MOBILE LEGENDS', placeholder: 'User ID (ឧ. 12345678)' },
+      freefire: { name: 'FREE FIRE', placeholder: 'Player ID (UID)' },
+      pubg: { name: 'PUBG MOBILE', placeholder: 'Character ID (UID)' },
+      roblox: { name: 'ROBLOX', placeholder: 'Roblox Username ឬ ID' }
     };
 
-    let selectedOrder = { gameKey: 'mlbb', packageName: '', price: 0, uid: '', orderId: '' };
+    let selectedOrder = {
+      gameKey: 'freefire',
+      packageName: '100 ពេជ្រ 💎',
+      price: 0.50,
+      qrImage: './qr-0.5.jpg',
+      uid: ''
+    };
 
     function openGameModal(gameKey, gameTitle, imgSrc) {
       selectedOrder.gameKey = gameKey;
       const gameData = gameDatabase[gameKey];
-      discountPercent = parseFloat(localStorage.getItem('myiove_discount_percent') || '0');
 
       document.getElementById('modal-game-name').innerText = gameTitle;
       const iconContainer = document.getElementById('modal-game-icon');
@@ -260,17 +180,15 @@
 
       const uidLabel = document.getElementById('uid-label');
       const uidInput = document.getElementById('uid-input');
-      uidLabel.innerText = `២. ${gameData.placeholder}`;
+      uidLabel.innerText = `២. បញ្ចូល ${gameData.placeholder}`;
       uidInput.placeholder = gameData.placeholder;
       uidInput.value = '';
 
       const grid = document.getElementById('package-grid');
       grid.innerHTML = '';
       
-      gameData.packages.forEach((pkg, index) => {
+      diamondPackages.forEach((pkg, index) => {
         const isFirst = index === 0;
-        const finalPrice = discountPercent > 0 ? pkg.price * (1 - discountPercent / 100) : pkg.price;
-
         const btn = document.createElement('div');
         btn.className = `pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs relative ${
           isFirst ? 'active-pkg' : 'bg-[#1b1410] text-gray-200 border-amber-900/60 font-medium'
@@ -278,12 +196,9 @@
         
         btn.innerHTML = `
           <div class="flex items-center space-x-2">
-            <span class="text-base">${gameData.iconEmoji || '💎'}</span>
+            <span class="text-base">💎</span>
             <div>
-              <div class="flex items-baseline space-x-1.5">
-                <p class="font-extrabold text-amber-400 font-inter text-sm">$${finalPrice.toFixed(2)}</p>
-                ${discountPercent > 0 ? `<p class="line-through text-gray-500 text-[10px] font-inter">$${pkg.price.toFixed(2)}</p>` : ''}
-              </div>
+              <p class="font-extrabold text-amber-400 font-inter text-sm">$${pkg.price.toFixed(2)}</p>
               <p class="text-[11px] text-gray-300 font-medium leading-tight">${pkg.name}</p>
             </div>
           </div>
@@ -291,8 +206,9 @@
 
         btn.onclick = () => {
           selectedOrder.packageName = pkg.name;
-          selectedOrder.price = finalPrice;
-          document.getElementById('price-tag').innerText = `$${finalPrice.toFixed(2)}`;
+          selectedOrder.price = pkg.price;
+          selectedOrder.qrImage = pkg.qrImage;
+          document.getElementById('price-tag').innerText = `$${pkg.price.toFixed(2)}`;
           document.querySelectorAll('.pkg-btn').forEach(b => {
             b.className = 'pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs bg-[#1b1410] text-gray-200 border-amber-900/60 font-medium';
           });
@@ -302,8 +218,9 @@
 
         if (isFirst) {
           selectedOrder.packageName = pkg.name;
-          selectedOrder.price = finalPrice;
-          document.getElementById('price-tag').innerText = `$${finalPrice.toFixed(2)}`;
+          selectedOrder.price = pkg.price;
+          selectedOrder.qrImage = pkg.qrImage;
+          document.getElementById('price-tag').innerText = `$${pkg.price.toFixed(2)}`;
         }
       });
 
@@ -317,16 +234,18 @@
       if (!uid) return alert('សូមបញ្ចូល Game ID របស់អ្នកជាមុនសិន!');
 
       selectedOrder.uid = uid;
-      selectedOrder.orderId = 'ORD' + Math.floor(100000 + Math.random() * 900000);
 
+      // បង្ហាញព័ត៌មាន និងប្តូររូបភាព QR ទៅតាមតម្លៃពេជ្រ
       document.getElementById('khqr-pkg-name').innerText = `${selectedOrder.gameKey.toUpperCase()} - ${selectedOrder.packageName}`;
       document.getElementById('khqr-player-id').innerText = selectedOrder.uid;
       document.getElementById('khqr-final-price').innerText = `$${selectedOrder.price.toFixed(2)} USD`;
+      document.getElementById('display-qr-img').src = selectedOrder.qrImage;
 
-      // កត់ត្រា Order ចូលប្រព័ន្ធ
+      // រក្សាទុក Order ចូល System
+      const orderId = 'ORD' + Math.floor(100000 + Math.random() * 900000);
       const orders = JSON.parse(localStorage.getItem('gametopup_orders') || '[]');
       orders.unshift({
-        orderId: selectedOrder.orderId,
+        orderId: orderId,
         game: selectedOrder.gameKey,
         packageName: selectedOrder.packageName,
         price: selectedOrder.price,
