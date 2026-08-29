@@ -19,47 +19,9 @@
 <body class="text-white min-h-screen p-3 sm:p-4 pb-24 relative">
 
   <!-- Header Bar -->
-  <div class="max-w-md mx-auto mb-3 text-center">
+  <div class="max-w-md mx-auto mb-4 text-center">
     <h1 class="text-2xl font-black tracking-wide text-amber-400 drop-shadow uppercase">MYIOVE Khmer</h1>
-    <p class="text-xs text-gray-400 mt-0.5">ហ្គេមសម្រាប់បញ្ចូលទឹកប្រាក់</p>
-  </div>
-
-  <!-- User Account & Balance Bar -->
-  <div class="max-w-md mx-auto mb-4 bg-[#2d221c] border border-amber-500/40 rounded-2xl p-3.5 flex flex-col space-y-3 shadow-xl">
-    <div class="flex items-center justify-between border-b border-amber-900/40 pb-2.5">
-      <div class="flex items-center space-x-2.5">
-        <div class="w-8 h-8 rounded-full bg-amber-500 text-black flex items-center justify-center font-black text-xs">👤</div>
-        <div>
-          <p id="user-display-name" class="text-xs font-bold text-amber-300">មិនទាន់ចូលគណនី</p>
-          <p id="user-display-contact" class="text-[10px] text-gray-400">សូមចុះឈ្មោះដើម្បីទិញ</p>
-        </div>
-      </div>
-      <div>
-        <button onclick="openAuthModal()" id="btn-login-trigger" class="text-[11px] bg-amber-500/20 text-amber-300 border border-amber-500/40 hover:bg-amber-500 hover:text-black font-bold px-3 py-1 rounded-lg transition">
-          ចុះឈ្មោះ / ចូល
-        </button>
-        <button onclick="handleLogout()" id="btn-logout-trigger" class="text-[11px] text-red-400 hover:text-red-300 font-bold px-2 py-1 rounded-lg hidden">
-          ចាកចេញ
-        </button>
-      </div>
-    </div>
-
-    <!-- Balance Display -->
-    <div class="flex items-center justify-between pt-0.5">
-      <div class="flex items-center space-x-2.5">
-        <div class="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-base">👛</div>
-        <div>
-          <p class="text-[10px] text-gray-400 font-medium">សមតុល្យលុយរបស់អ្នក</p>
-          <p class="text-base font-black text-amber-400 font-inter leading-tight">
-            $<span id="user-balance-display">0.00</span> <span class="text-[10px] text-gray-300 font-normal">USD</span>
-          </p>
-        </div>
-      </div>
-      <button onclick="openDepositModal()" class="bg-amber-500 hover:bg-amber-400 text-neutral-950 font-extrabold text-xs px-3.5 py-1.5 rounded-xl shadow-lg transition active:scale-95 flex items-center space-x-1 border border-amber-300">
-        <span>➕</span>
-        <span>ដាក់លុយ</span>
-      </button>
-    </div>
+    <p class="text-xs text-gray-400 mt-0.5">ជ្រើសរើសហ្គេម & កញ្ចប់ពេជ្រដើម្បីទូទាត់ប្រាក់</p>
   </div>
 
   <!-- Promo Banner -->
@@ -67,7 +29,7 @@
     🔥 កំពុងមានប្រូម៉ូសិនបញ្ចុះតម្លៃ <span id="banner-discount-percent">0%</span> គ្រប់មុខទំនិញទាំងអស់!
   </div>
 
-  <!-- Grid Game Cards -->
+  <!-- Grid Game Cards ទាំង ៤ (គ្មានប៊ូតុងដាក់លុយរំខាន) -->
   <div class="max-w-md mx-auto grid grid-cols-2 gap-3 sm:gap-4">
     <div onclick="openGameModal('mlbb', 'MOBILE LEGENDS', './mlbb.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
       <div class="w-full aspect-square rounded-xl overflow-hidden shadow bg-neutral-900">
@@ -102,78 +64,81 @@
     </div>
   </div>
 
-  <!-- Auth Modal -->
-  <div id="auth-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
-    <div class="w-full max-w-sm bg-[#2d221c] border border-amber-500/50 rounded-3xl p-5 relative shadow-2xl space-y-4">
-      <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl font-bold">✕</button>
-      <div class="text-center">
-        <h3 class="font-black text-lg text-amber-400">ចុះឈ្មោះ / ចូលគណនី</h3>
-        <p class="text-xs text-gray-300 mt-0.5">សូមបំពេញព័ត៌មានខាងក្រោមមុនពេលទិញ</p>
-      </div>
-      <div class="space-y-3 text-xs">
-        <div>
-          <label class="block text-amber-300 font-bold mb-1">ឈ្មោះរបស់អ្នក</label>
-          <input type="text" id="reg-name" placeholder="ឧ. Sokha Gamer" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
-        </div>
-        <div>
-          <label class="block text-amber-300 font-bold mb-1">Email ឬ លេខទូរសព្ទ</label>
-          <input type="text" id="reg-contact" placeholder="ឧ. 012345678 ឬ user@gmail.com" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
-        </div>
-        <div>
-          <label class="block text-amber-300 font-bold mb-1">ពាក្យសម្ងាត់ Password</label>
-          <input type="password" id="reg-pass" placeholder="បញ្ចូលពាក្យសម្ងាត់" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
-        </div>
-        <button onclick="handleRegister()" class="w-full bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs mt-2">
-          យល់ព្រម & ចូលគណនី ➔
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Deposit KHQR Modal -->
-  <div id="deposit-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
-    <div class="w-full max-w-sm sm:max-w-md bg-[#2d221c] border border-amber-500/50 rounded-3xl p-4 sm:p-5 relative shadow-2xl text-center">
-      <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold p-1">✕</button>
-      <h3 class="font-black text-lg text-amber-400 mb-1">ស្កេនបញ្ចូលទឹកប្រាក់ (KHQR)</h3>
-      <p class="text-xs text-gray-300 mb-4">ផ្ទេរប្រាក់រួច សូមផ្ញើវិក្កយបត្រទៅអេតមីនដើម្បីបញ្ចូលលុយជូន</p>
-      <div class="bg-white p-2.5 sm:p-3 rounded-2xl shadow-xl flex items-center justify-center">
-        <img src="./my-khqr.png" onerror="this.src='./my-khqr.jpg'" class="w-full h-auto rounded-xl object-contain max-h-[72vh] shadow" alt="My KHQR">
-      </div>
-    </div>
-  </div>
-
-  <!-- Game Order Modal -->
+  <!-- POP-UP ទី ១: ផ្ទាំងជ្រើសរើសកញ្ចប់ពេជ្រ & បញ្ចូល Game ID -->
   <div id="game-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
     <div class="w-full max-w-md bg-[#2d221c] rounded-3xl p-5 border border-amber-600/40 relative shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
       <button onclick="closeGameModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
+      
       <div class="flex items-center space-x-3 pb-2 border-b border-amber-900/60">
         <div id="modal-game-icon" class="w-10 h-10 rounded-xl overflow-hidden bg-amber-500 flex items-center justify-center font-bold text-xl text-black"></div>
         <div>
           <h3 id="modal-game-name" class="font-extrabold text-base text-amber-400">ហ្គេម</h3>
-          <p class="text-[11px] text-gray-400">ជ្រើសកញ្ចប់ & បញ្ចូល ID</p>
+          <p class="text-[11px] text-gray-400">ជ្រើសកញ្ចប់ពេជ្រ & បញ្ចូល ID</p>
         </div>
       </div>
+
+      <!-- បញ្ជីកញ្ចប់ពេជ្រ -->
       <div>
-        <label class="text-xs text-amber-300 font-bold block mb-1.5">១. ជ្រើសរើសកញ្ចប់</label>
+        <label class="text-xs text-amber-300 font-bold block mb-1.5">១. ជ្រើសរើសចំនួនពេជ្រ/កាក់</label>
         <div class="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto pr-1" id="package-grid"></div>
       </div>
+
+      <!-- បញ្ចូល Game ID -->
       <div>
         <label id="uid-label" class="text-xs text-amber-300 font-bold block mb-1.5">២. បញ្ចូល Game ID</label>
         <input type="text" id="uid-input" placeholder="បញ្ចូល Player ID" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
       </div>
+
+      <!-- តម្លៃ & ប៊ូតុងបើកមើល KHQR -->
       <div class="pt-2 border-t border-amber-900/40 flex justify-between items-center sticky bottom-0 bg-[#2d221c]">
         <div>
-          <span class="text-[10px] text-gray-400 block">តម្លៃសរុប</span>
+          <span class="text-[10px] text-gray-400 block">តម្លៃពេជ្រសរុប</span>
           <span id="price-tag" class="text-xl font-black text-amber-400 font-inter">$0.00</span>
         </div>
-        <button id="btn-submit-order" onclick="handlePurchase()" class="bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs">
-          ទិញភ្លាមៗ ➔
+        <button onclick="openPaymentModal()" class="bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs">
+          ស្កេនទូទាត់ KHQR ➔
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Telegram Contact Button -->
+  <!-- POP-UP ទី ២: ផ្ទាំងបង្ហាញរូបភាព KHQR ផ្ទាល់ខ្លួនរបស់អ្នក ជាមួយតម្លៃពេជ្រដែលបានជ្រើស -->
+  <div id="payment-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
+    <div class="w-full max-w-sm bg-[#2d221c] border border-amber-500/50 rounded-3xl p-4 sm:p-5 relative shadow-2xl text-center">
+      <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold p-1">✕</button>
+      
+      <h3 class="font-black text-lg text-amber-400 mb-1">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
+      <p class="text-xs text-gray-300 mb-3">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
+
+      <!-- តារាងសង្ខេបតម្លៃពេជ្រដែលភ្ញៀវត្រូវស្កេនបង់ -->
+      <div class="bg-black/50 border border-amber-900/60 rounded-2xl p-3 mb-3 text-left space-y-1">
+        <div class="flex justify-between items-center">
+          <span class="text-xs text-gray-400 font-bold">កញ្ចប់ពេជ្រ:</span>
+          <span id="khqr-pkg-name" class="text-xs font-bold text-amber-300">-</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-xs text-gray-400 font-bold">Player ID:</span>
+          <span id="khqr-player-id" class="text-xs font-mono font-bold text-sky-400 select-all">-</span>
+        </div>
+        <div class="flex justify-between items-center pt-1 border-t border-amber-900/40">
+          <span class="text-xs text-gray-300 font-bold">ចំនួនទឹកប្រាក់ត្រូវផ្ទេរ:</span>
+          <span id="khqr-final-price" class="text-base font-black text-green-400 font-inter">$0.00 USD</span>
+        </div>
+      </div>
+
+      <!-- រូបភាព KHQR ផ្ទាល់ខ្លួនរបស់អ្នក (my-khqr.png) -->
+      <div class="bg-white p-2.5 rounded-2xl shadow-xl flex items-center justify-center">
+        <img src="./my-khqr.png" onerror="this.src='./my-khqr.jpg'" class="w-full h-auto rounded-xl object-contain max-h-[50vh] shadow" alt="My KHQR">
+      </div>
+
+      <!-- ប៊ូតុងផ្ញើវិក្កយបត្រ -->
+      <a href="https://t.me/Bunsaleangraksa" target="_blank" class="w-full mt-3.5 bg-sky-500 hover:bg-sky-400 text-white py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5 shadow-lg transition">
+        <span>ផ្ញើវិក្កយបត្រទៅអេតមីន (@Bunsaleangraksa)</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Floating Telegram Quick Chat Button -->
   <a href="https://t.me/Bunsaleangraksa" target="_blank" rel="noopener noreferrer" title="ទាក់ទងអេតមីន" class="fixed bottom-5 right-5 w-13 h-13 p-3 bg-sky-500 hover:bg-sky-400 text-white rounded-full flex items-center justify-center shadow-2xl transition duration-200 active:scale-90 z-40 border-2 border-white/20">
     <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
       <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
@@ -181,69 +146,13 @@
   </a>
 
   <script>
-    let activeSession = JSON.parse(localStorage.getItem('myiove_active_session') || 'null');
     let discountPercent = parseFloat(localStorage.getItem('myiove_discount_percent') || '0');
 
-    function getUsersDatabase() { return JSON.parse(localStorage.getItem('myiove_users_db') || '{}'); }
-    function saveUsersDatabase(db) { localStorage.setItem('myiove_users_db', JSON.stringify(db)); }
-
-    function updateBalanceUI() {
-      const promoBanner = document.getElementById('promo-banner');
-      if (discountPercent > 0) {
-        promoBanner.classList.remove('hidden');
-        document.getElementById('banner-discount-percent').innerText = `${discountPercent}%`;
-      } else {
-        promoBanner.classList.add('hidden');
-      }
-
-      if (activeSession) {
-        const usersDb = getUsersDatabase();
-        const user = usersDb[activeSession.contact] || activeSession;
-        document.getElementById('user-display-name').innerText = user.name;
-        document.getElementById('user-display-contact').innerText = user.contact;
-        document.getElementById('user-balance-display').innerText = Number(user.balance || 0).toFixed(2);
-        document.getElementById('btn-login-trigger').classList.add('hidden');
-        document.getElementById('btn-logout-trigger').classList.remove('hidden');
-      } else {
-        document.getElementById('user-display-name').innerText = 'មិនទាន់ចូលគណនី';
-        document.getElementById('user-display-contact').innerText = 'សូមចុះឈ្មោះដើម្បីទិញ';
-        document.getElementById('user-balance-display').innerText = '0.00';
-        document.getElementById('btn-login-trigger').classList.remove('hidden');
-        document.getElementById('btn-logout-trigger').classList.add('hidden');
-      }
-    }
-
-    function openAuthModal() { document.getElementById('auth-modal').classList.remove('hidden'); }
-    function closeAuthModal() { document.getElementById('auth-modal').classList.add('hidden'); }
-
-    function handleRegister() {
-      const name = document.getElementById('reg-name').value.trim();
-      const contact = document.getElementById('reg-contact').value.trim();
-      const pass = document.getElementById('reg-pass').value.trim();
-
-      if (!name || !contact || !pass) return alert('សូមបំពេញឈ្មោះ, Email/លេខទូរសព្ទ និង ពាក្យសម្ងាត់ឱ្យបានគ្រប់គ្រាន់!');
-
-      const usersDb = getUsersDatabase();
-      if (!usersDb[contact]) {
-        usersDb[contact] = { name, contact, pass, balance: 0.00 };
-      } else {
-        usersDb[contact].name = name;
-      }
-      saveUsersDatabase(usersDb);
-
-      activeSession = usersDb[contact];
-      localStorage.setItem('myiove_active_session', JSON.stringify(activeSession));
-
-      closeAuthModal();
-      updateBalanceUI();
-      alert(`🎉 ស្វាគមន៍ការចូលមកកាន់ MYIOVE Khmer, ${name}!\nសមតុល្យបច្ចុប្បន្នរបស់អ្នកគឺ: $${Number(activeSession.balance || 0).toFixed(2)} USD`);
-    }
-
-    function handleLogout() {
-      if (!confirm('តើអ្នកចង់ចាកចេញពីគណនីនេះមែនទេ?')) return;
-      localStorage.removeItem('myiove_active_session');
-      activeSession = null;
-      updateBalanceUI();
+    // បង្ហាញ Banner ប្រូម៉ូសិន (ប្រសិនបើអេតមីនបានដាក់)
+    const promoBanner = document.getElementById('promo-banner');
+    if (discountPercent > 0) {
+      promoBanner.classList.remove('hidden');
+      document.getElementById('banner-discount-percent').innerText = `${discountPercent}%`;
     }
 
     const gameDatabase = {
@@ -338,10 +247,7 @@
       }
     };
 
-    let selectedOrder = { gameKey: 'mlbb', packageName: '', price: 0, uid: '' };
-
-    function openDepositModal() { document.getElementById('deposit-modal').classList.remove('hidden'); }
-    function closeDepositModal() { document.getElementById('deposit-modal').classList.add('hidden'); }
+    let selectedOrder = { gameKey: 'mlbb', packageName: '', price: 0, uid: '', orderId: '' };
 
     function openGameModal(gameKey, gameTitle, imgSrc) {
       selectedOrder.gameKey = gameKey;
@@ -363,9 +269,7 @@
       
       gameData.packages.forEach((pkg, index) => {
         const isFirst = index === 0;
-        const finalPrice = discountPercent > 0 
-          ? pkg.price * (1 - discountPercent / 100) 
-          : pkg.price;
+        const finalPrice = discountPercent > 0 ? pkg.price * (1 - discountPercent / 100) : pkg.price;
 
         const btn = document.createElement('div');
         btn.className = `pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs relative ${
@@ -374,7 +278,7 @@
         
         btn.innerHTML = `
           <div class="flex items-center space-x-2">
-            <span class="text-base">${gameData.iconEmoji || '🎮'}</span>
+            <span class="text-base">${gameData.iconEmoji || '💎'}</span>
             <div>
               <div class="flex items-baseline space-x-1.5">
                 <p class="font-extrabold text-amber-400 font-inter text-sm">$${finalPrice.toFixed(2)}</p>
@@ -408,93 +312,37 @@
 
     function closeGameModal() { document.getElementById('game-modal').classList.add('hidden'); }
 
-    async function sendOrderToProviderAPI(orderPayload) {
-      const apiConfig = JSON.parse(localStorage.getItem('myiove_provider_api') || '{}');
-      if (!apiConfig.url || !apiConfig.key) {
-        return { success: true, mode: 'OFFLINE_SAVED' };
-      }
-
-      try {
-        const response = await fetch(apiConfig.url, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${apiConfig.key}`
-          },
-          body: JSON.stringify({
-            api_key: apiConfig.key,
-            secret: apiConfig.secret || '',
-            order_id: orderPayload.orderId,
-            game: orderPayload.game,
-            user_id: orderPayload.uid,
-            product_name: orderPayload.packageName,
-            amount: orderPayload.price
-          })
-        });
-
-        const result = await response.json().catch(() => ({}));
-        return { success: response.ok, data: result };
-      } catch (err) {
-        return { success: false, error: err.message };
-      }
-    }
-
-    async function handlePurchase() {
-      if (!activeSession) {
-        alert('⚠️ សូមចុះឈ្មោះ ឬចូលគណនីរបស់អ្នកជាមុនសិន!');
-        closeGameModal();
-        openAuthModal();
-        return;
-      }
-
-      const usersDb = getUsersDatabase();
-      const currentUser = usersDb[activeSession.contact];
-
-      if (!currentUser || (currentUser.balance || 0) < selectedOrder.price) {
-        alert(`⚠️ សមតុល្យលុយក្នុងគណនីរបស់អ្នកគឺ: $${Number(currentUser?.balance || 0).toFixed(2)} USD មិនគ្រប់គ្រាន់ទេ!\nសូមស្កេន KHQR ដើម្បីឱ្យអេតមីនបញ្ចូលលុយឱ្យជាមុនសិន។`);
-        closeGameModal();
-        openDepositModal();
-        return;
-      }
-
+    function openPaymentModal() {
       const uid = document.getElementById('uid-input').value.trim();
       if (!uid) return alert('សូមបញ្ចូល Game ID របស់អ្នកជាមុនសិន!');
 
-      const btn = document.getElementById('btn-submit-order');
-      btn.innerText = 'កំពុងកាត់អីវ៉ាន់ពី API...';
-      btn.disabled = true;
+      selectedOrder.uid = uid;
+      selectedOrder.orderId = 'ORD' + Math.floor(100000 + Math.random() * 900000);
 
-      currentUser.balance -= selectedOrder.price;
-      saveUsersDatabase(usersDb);
-      updateBalanceUI();
+      document.getElementById('khqr-pkg-name').innerText = `${selectedOrder.gameKey.toUpperCase()} - ${selectedOrder.packageName}`;
+      document.getElementById('khqr-player-id').innerText = selectedOrder.uid;
+      document.getElementById('khqr-final-price').innerText = `$${selectedOrder.price.toFixed(2)} USD`;
 
-      const orderId = 'ORD' + Math.floor(100000 + Math.random() * 900000);
-      const orderData = {
-        orderId: orderId,
+      // កត់ត្រា Order ចូលប្រព័ន្ធ
+      const orders = JSON.parse(localStorage.getItem('gametopup_orders') || '[]');
+      orders.unshift({
+        orderId: selectedOrder.orderId,
         game: selectedOrder.gameKey,
         packageName: selectedOrder.packageName,
         price: selectedOrder.price,
-        uid: uid,
-        buyerName: currentUser.name,
-        buyerContact: currentUser.contact,
-        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      };
-
-      const apiResult = await sendOrderToProviderAPI(orderData);
-      orderData.apiStatus = apiResult.success ? 'SUCCESS' : 'PENDING';
-
-      const orders = JSON.parse(localStorage.getItem('gametopup_orders') || '[]');
-      orders.unshift(orderData);
+        uid: selectedOrder.uid,
+        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        status: 'PENDING'
+      });
       localStorage.setItem('gametopup_orders', JSON.stringify(orders));
 
-      btn.innerText = 'ទិញភ្លាមៗ ➔';
-      btn.disabled = false;
       closeGameModal();
-
-      alert(`🎉 ការទិញបានជោគជ័យ!\n\n• អ្នកទិញ: ${currentUser.name}\n• លេខកូដ: ${orderId}\n• ហ្គេម: ${selectedOrder.gameKey.toUpperCase()}\n• កញ្ចប់: ${selectedOrder.packageName}\n• ID: ${uid}\n• កាត់ប្រាក់: $${selectedOrder.price.toFixed(2)}\n• សមតុល្យនៅសល់: $${currentUser.balance.toFixed(2)}\n\nប្រព័ន្ធបានបញ្ជូន Order ទៅកាត់យកអីវ៉ាន់ពី API ដើមជោគជ័យ!`);
+      document.getElementById('payment-modal').classList.remove('hidden');
     }
 
-    updateBalanceUI();
+    function closePaymentModal() {
+      document.getElementById('payment-modal').classList.add('hidden');
+    }
   </script>
 </body>
 </html>
