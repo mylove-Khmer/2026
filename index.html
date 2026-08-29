@@ -26,9 +26,8 @@
 </head>
 <body class="min-h-screen pb-24">
 
-  <!-- ================= TOP APP BAR ================= -->
+  <!-- Header Bar -->
   <header class="sticky top-0 z-40 bg-[#0c0f17]/95 backdrop-blur-md px-4 py-3 border-b border-gray-800/60 max-w-lg mx-auto flex items-center justify-between">
-    <!-- Brand Logo & Name -->
     <div class="flex items-center space-x-2">
       <div class="text-indigo-400 text-xl">
         <svg class="w-6 h-6 fill-current text-indigo-500" viewBox="0 0 24 24">
@@ -38,7 +37,7 @@
       <span class="font-inter font-black text-lg text-white tracking-tight">MYIOVE <span class="text-indigo-400">TopUp</span></span>
     </div>
 
-    <!-- Language Toggle Pill -->
+    <!-- Language Toggle -->
     <div class="flex items-center bg-[#1e2330] p-1 rounded-full border border-gray-700/60">
       <button onclick="setLanguage('en')" id="lang-btn-en" class="flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold transition text-gray-400 hover:text-white">
         <span>🇺🇸</span>
@@ -53,7 +52,7 @@
 
   <main class="max-w-lg mx-auto px-4 pt-3 space-y-4">
 
-    <!-- ================= SEARCH INPUT ================= -->
+    <!-- Search Input -->
     <div class="relative">
       <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-gray-400">
         <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
@@ -61,10 +60,10 @@
           <path d="M21 21l-4.35-4.35"/>
         </svg>
       </span>
-      <input type="text" id="game-search" oninput="filterGames()" placeholder="Search games or #id..." class="w-full bg-[#181d28] border border-gray-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition">
+      <input type="text" id="game-search" oninput="filterGames()" placeholder="ស្វែងរកហ្គេម ឬ #id..." class="w-full bg-[#181d28] border border-gray-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition">
     </div>
 
-    <!-- ================= TRENDING SECTION HEADER ================= -->
+    <!-- Trending Header -->
     <div class="flex items-center space-x-2 pt-1">
       <span id="t-trending-label" class="font-bold text-sm text-gray-200">ពេញនិយម</span>
       <span>🔥</span>
@@ -74,58 +73,45 @@
       </div>
     </div>
 
-    <!-- ================= GAMES GRID CONTAINER ================= -->
-    <div class="bg-[#141824] border border-gray-800/80 rounded-2xl p-3.5 shadow-xl">
-      <div class="grid grid-cols-3 gap-3 sm:gap-4" id="games-container">
+    <!-- ================= ហ្គេមទាំង ៤ ដាច់ដោយឡែកពីគ្នា ================= -->
+    <div class="bg-[#141824] border border-gray-800/80 rounded-2xl p-4 shadow-xl">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5" id="games-container">
 
-        <!-- 1. MLBB Exclusive -->
-        <div onclick="openGameModal('mlbb', 'Mobile Legends Exclusive...', './mlbb.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
-          <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition relative">
-            <img src="./mlbb.png" onerror="this.src='./mlbb.jpg'" class="w-full h-full object-cover" alt="MLBB">
-            <span class="absolute top-1 right-1 bg-blue-600/90 text-[9px] px-1 rounded font-bold">🇰🇭</span>
-          </div>
-          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">Mobile Legends Exclusive...</span>
-        </div>
-
-        <!-- 2. Free Fire -->
+        <!-- ១. Free Fire -->
         <div onclick="openGameModal('freefire', 'Free Fire', './freefire.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
           <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition">
             <img src="./freefire.png" onerror="this.src='./freefire.jpg'" class="w-full h-full object-cover" alt="Free Fire">
           </div>
-          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">Free Fire</span>
+          <span class="text-xs font-bold text-gray-200 mt-2 text-center line-clamp-1">Free Fire</span>
+          <span class="text-[10px] text-indigo-400 font-inter font-semibold">Diamonds</span>
         </div>
 
-        <!-- 3. MLBB Cambodia -->
-        <div onclick="openGameModal('mlbb', 'Mobile Legends Cambodia', './mlbb.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
+        <!-- ២. Mobile Legends -->
+        <div onclick="openGameModal('mlbb', 'Mobile Legends', './mlbb.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
           <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition relative">
             <img src="./mlbb.png" onerror="this.src='./mlbb.jpg'" class="w-full h-full object-cover" alt="MLBB">
             <span class="absolute top-1 right-1 bg-blue-600/90 text-[9px] px-1 rounded font-bold">🇰🇭</span>
           </div>
-          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">Mobile Legends Cambodia</span>
+          <span class="text-xs font-bold text-gray-200 mt-2 text-center line-clamp-1">Mobile Legends</span>
+          <span class="text-[10px] text-indigo-400 font-inter font-semibold">Diamonds</span>
         </div>
 
-        <!-- 4. PUBG Mobile Global -->
-        <div onclick="openGameModal('pubg', 'PUBG Mobile Global', './pubg.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
+        <!-- ៣. PUBG Mobile -->
+        <div onclick="openGameModal('pubg', 'PUBG Mobile', './pubg.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
           <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition">
             <img src="./pubg.png" onerror="this.src='./pubg.jpg'" class="w-full h-full object-cover" alt="PUBG">
           </div>
-          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">PUBG Mobile Global</span>
+          <span class="text-xs font-bold text-gray-200 mt-2 text-center line-clamp-1">PUBG Mobile</span>
+          <span class="text-[10px] text-indigo-400 font-inter font-semibold">UC</span>
         </div>
 
-        <!-- 5. Honor of Kings / Roblox -->
-        <div onclick="openGameModal('roblox', 'Honor of Kings', './roblox.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
+        <!-- ៤. Roblox -->
+        <div onclick="openGameModal('roblox', 'Roblox', './roblox.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
           <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition">
-            <img src="./roblox.png" onerror="this.src='./roblox.jpg'" class="w-full h-full object-cover" alt="Honor of Kings">
+            <img src="./roblox.png" onerror="this.src='./roblox.jpg'" class="w-full h-full object-cover" alt="Roblox">
           </div>
-          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">Honor of Kings</span>
-        </div>
-
-        <!-- 6. MLBB Special -->
-        <div onclick="openGameModal('mlbb', 'Mobile Legends Special', './mlbb.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
-          <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition">
-            <img src="./mlbb.png" onerror="this.src='./mlbb.jpg'" class="w-full h-full object-cover" alt="MLBB">
-          </div>
-          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">Mobile Legends Special</span>
+          <span class="text-xs font-bold text-gray-200 mt-2 text-center line-clamp-1">Roblox</span>
+          <span class="text-[10px] text-indigo-400 font-inter font-semibold">Robux</span>
         </div>
 
       </div>
@@ -133,10 +119,8 @@
 
   </main>
 
-  <!-- ================= BOTTOM NAVIGATION BAR ================= -->
+  <!-- Bottom Navigation Bar -->
   <nav class="fixed bottom-0 left-0 right-0 z-40 bg-[#0e121c]/95 backdrop-blur-lg border-t border-gray-800/80 max-w-lg mx-auto flex items-center justify-around py-2 px-1">
-    
-    <!-- Games Tab (Active) -->
     <button class="flex flex-col items-center text-indigo-400 space-y-0.5">
       <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
         <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
@@ -144,7 +128,6 @@
       <span id="nav-games" class="text-[10px] font-bold">ហ្គេម</span>
     </button>
 
-    <!-- Track Tab -->
     <button onclick="alert(currentLang === 'km' ? 'មុខងារតាមដានវិក្កយបត្រនឹងបើកដំណើរការឆាប់ៗ!' : 'Tracking feature coming soon!')" class="flex flex-col items-center text-gray-400 hover:text-white space-y-0.5">
       <svg class="w-5 h-5 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
         <circle cx="11" cy="11" r="8"/>
@@ -153,7 +136,6 @@
       <span class="text-[10px] font-bold font-inter">Track</span>
     </button>
 
-    <!-- Orders Tab -->
     <a href="https://t.me/MeiKhmer" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-white space-y-0.5">
       <svg class="w-5 h-5 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
@@ -163,7 +145,6 @@
       <span id="nav-orders" class="text-[10px] font-bold">ការបញ្ជាទិញ</span>
     </a>
 
-    <!-- Account / Login Tab -->
     <a href="https://t.me/MeiKhmer" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-white space-y-0.5">
       <svg class="w-5 h-5 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
@@ -171,10 +152,9 @@
       </svg>
       <span id="nav-account" class="text-[10px] font-bold">ចូល</span>
     </a>
-
   </nav>
 
-  <!-- ================= POP-UP ទី ១: ជ្រើសរើសកញ្ចប់ពេជ្រ ================= -->
+  <!-- POP-UP ទី ១: ជ្រើសរើសកញ្ចប់ពេជ្រ -->
   <div id="game-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
     <div class="w-full max-w-md bg-[#141824] rounded-3xl p-5 border border-gray-800 relative shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
       <button onclick="closeGameModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
@@ -183,12 +163,12 @@
         <div id="modal-game-icon" class="w-11 h-11 rounded-2xl overflow-hidden bg-neutral-900 border border-gray-700 flex items-center justify-center font-bold text-xl"></div>
         <div>
           <h3 id="modal-game-name" class="font-extrabold text-sm text-white">Game Title</h3>
-          <p id="t-modal-subtitle" class="text-[11px] text-gray-400">ជ្រើសកញ្ចប់ពេជ្រ & បញ្ចូល ID</p>
+          <p id="t-modal-subtitle" class="text-[11px] text-gray-400">ជ្រើសកញ្ចប់ & បញ្ចូល ID</p>
         </div>
       </div>
 
       <div>
-        <label id="t-step1-label" class="text-xs text-indigo-400 font-bold block mb-2">១. ជ្រើសរើសចំនួនពេជ្រ</label>
+        <label id="t-step1-label" class="text-xs text-indigo-400 font-bold block mb-2">១. ជ្រើសរើសកញ្ចប់</label>
         <div class="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto pr-1" id="package-grid"></div>
       </div>
 
@@ -199,7 +179,7 @@
 
       <div class="pt-3 border-t border-gray-800 flex justify-between items-center sticky bottom-0 bg-[#141824]">
         <div>
-          <span id="t-price-label" class="text-[10px] text-gray-400 block">តម្លៃពេជ្រសរុប</span>
+          <span id="t-price-label" class="text-[10px] text-gray-400 block">តម្លៃសរុប</span>
           <span id="price-tag" class="text-lg font-black text-indigo-400 font-inter">$0.50</span>
         </div>
         <button id="t-scan-btn" onclick="openPaymentModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-black px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs">
@@ -209,17 +189,22 @@
     </div>
   </div>
 
-  <!-- ================= POP-UP ទី ២: ផ្ទាំងទូទាត់ KHQR ================= -->
+  <!-- POP-UP ទី ២: ផ្ទាំងទូទាត់ KHQR (១០ នាទី) -->
   <div id="payment-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
     <div class="w-full max-w-[340px] bg-[#141824] border border-gray-800 rounded-3xl p-4 relative shadow-2xl text-center">
       <button onclick="closePaymentModal()" class="absolute top-3.5 right-3.5 text-gray-400 hover:text-white text-2xl font-bold p-1 z-10">✕</button>
       
       <h3 id="t-pay-title" class="font-black text-base text-indigo-400 mb-0.5">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
-      <p id="t-pay-subtitle" class="text-[11px] text-gray-400 mb-3">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
+      <p id="t-pay-subtitle" class="text-[11px] text-gray-400 mb-2">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
+
+      <div class="flex items-center justify-between bg-black/60 border border-gray-800 rounded-xl px-3 py-1.5 mb-2.5">
+        <span id="t-timer-label" class="text-xs text-gray-300">⏳ QR ផុតកំណត់ក្នុង:</span>
+        <span id="khqr-countdown" class="font-inter font-black text-xs text-amber-400 tracking-wider">10:00</span>
+      </div>
 
       <div class="bg-[#181d28] border border-gray-800 rounded-xl p-2.5 mb-3 text-left text-xs space-y-1">
         <div class="flex justify-between items-center">
-          <span id="t-row-pkg" class="text-gray-400 font-bold">កញ្ចប់ពេជ្រ:</span>
+          <span id="t-row-pkg" class="text-gray-400 font-bold">កញ្ចប់:</span>
           <span id="khqr-pkg-name" class="font-bold text-indigo-300">-</span>
         </div>
         <div class="flex justify-between items-center">
@@ -232,9 +217,19 @@
         </div>
       </div>
 
-      <!-- QR Image Frame (គ្មានគែមសរំខាន) -->
-      <div class="w-full flex items-center justify-center overflow-hidden rounded-2xl shadow-xl bg-transparent">
+      <div class="relative w-full flex items-center justify-center overflow-hidden rounded-2xl shadow-xl bg-transparent min-h-[260px]">
         <img id="display-qr-img" src="" class="w-full h-auto object-cover rounded-2xl block -mb-1.5" alt="KHQR Payment">
+        
+        <div id="qr-expired-overlay" class="absolute inset-0 bg-[#0c0f17]/95 backdrop-blur-md flex flex-col items-center justify-center p-4 hidden space-y-3">
+          <div class="w-12 h-12 rounded-full bg-red-500/20 border border-red-500/40 flex items-center justify-center text-2xl text-red-400">⚠️</div>
+          <div>
+            <p id="t-expired-title" class="font-black text-sm text-red-400">QR Code បានផុតកំណត់!</p>
+            <p id="t-expired-desc" class="text-[11px] text-gray-400 mt-0.5">លើសពី ១០ នាទី សូមចុចបង្កើត QR ថ្មី</p>
+          </div>
+          <button onclick="refreshExpiredQR()" id="t-refresh-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white font-bold px-4 py-2 rounded-xl text-xs transition shadow-lg">
+            🔄 បង្កើត QR ថ្មី
+          </button>
+        </div>
       </div>
 
       <a id="t-send-slip-btn" href="https://t.me/MeiKhmer" target="_blank" class="w-full mt-3 bg-sky-500 hover:bg-sky-400 text-white py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5 shadow-lg transition">
@@ -243,27 +238,31 @@
     </div>
   </div>
 
-  <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
     let currentLang = localStorage.getItem('myiove_lang') || 'km';
+    let qrTimerInterval = null;
+    const TEN_MINUTES_SECONDS = 10 * 60;
 
     const i18n = {
       km: {
         trending: "ពេញនិយម",
         searchPlaceholder: "ស្វែងរកហ្គេម ឬ #id...",
-        modalSubtitle: "ជ្រើសកញ្ចប់ពេជ្រ & បញ្ចូល ID",
-        step1: "១. ជ្រើសរើសចំនួនពេជ្រ",
+        modalSubtitle: "ជ្រើសកញ្ចប់ & បញ្ចូល ID",
+        step1: "១. ជ្រើសរើសកញ្ចប់",
         step2Prefix: "២. បញ្ចូល ",
-        enterUidAlert: "សូមបញ្ចូល Game ID របស់អ្នកជាមុនសិន!",
-        priceLabel: "តម្លៃពេជ្រសរុប",
+        enterUidAlert: "សូមបញ្ចូល ID របស់អ្នកជាមុនសិន!",
+        priceLabel: "តម្លៃសរុប",
         scanBtn: "ស្កេនទូទាត់ KHQR ➔",
         payTitle: "ស្កេនទូទាត់ប្រាក់ (KHQR)",
         paySubtitle: "ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)",
-        rowPkg: "កញ្ចប់ពេជ្រ:",
+        timerLabel: "⏳ QR ផុតកំណត់ក្នុង:",
+        expiredTitle: "QR Code បានផុតកំណត់!",
+        expiredDesc: "លើសពី ១០ នាទី សូមចុចបង្កើត QR ថ្មី",
+        refreshBtn: "🔄 បង្កើត QR ថ្មី",
+        rowPkg: "កញ្ចប់:",
         rowId: "Player ID:",
         rowPrice: "ទឹកប្រាក់ត្រូវផ្ទេរ:",
         sendSlip: "ផ្ញើវិក្កយបត្រទៅអេតមីន (@MeiKhmer)",
-        unitDiamond: "ពេជ្រ 💎",
         navGames: "ហ្គេម",
         navOrders: "ការបញ្ជាទិញ",
         navAccount: "ចូល"
@@ -272,24 +271,28 @@
         trending: "Trending",
         searchPlaceholder: "Search games or #id...",
         modalSubtitle: "Select Package & Enter ID",
-        step1: "1. Select Diamond Package",
+        step1: "1. Select Package",
         step2Prefix: "2. Enter ",
-        enterUidAlert: "Please enter your Game ID first!",
+        enterUidAlert: "Please enter your ID first!",
         priceLabel: "Total Price",
         scanBtn: "Scan KHQR to Pay ➔",
         payTitle: "Scan to Pay (KHQR)",
         paySubtitle: "Supported by all Banks & Bakong App",
+        timerLabel: "⏳ QR Expires In:",
+        expiredTitle: "QR Code Expired!",
+        expiredDesc: "Past 10 minutes, please generate a new QR",
+        refreshBtn: "🔄 Generate New QR",
         rowPkg: "Package:",
         rowId: "Player ID:",
         rowPrice: "Amount to Pay:",
         sendSlip: "Send Receipt to Admin (@MeiKhmer)",
-        unitDiamond: "Diamonds 💎",
         navGames: "Games",
         navOrders: "Orders",
         navAccount: "Login"
       }
     };
 
+    // តារាងកញ្ចប់ពេជ្រ និងរូបភាព QR ទាំង ១០ ត្រូវគ្នានឹងតម្លៃ
     const diamondPackages = [
       { amount: 100, price: 0.50, fileKey: '0.5' },
       { amount: 110, price: 1.00, fileKey: '1' },
@@ -303,11 +306,36 @@
       { amount: 6000, price: 50.00, fileKey: '50' }
     ];
 
+    // ទិន្នន័យហ្គេមទាំង ៤ ដាច់ដោយឡែកពីគ្នា
     const gameDatabase = {
-      mlbb: { name: 'Mobile Legends', placeholderKm: 'User ID (ឧ. 12345678)', placeholderEn: 'User ID (e.g. 12345678)' },
-      freefire: { name: 'Free Fire', placeholderKm: 'Player ID (UID)', placeholderEn: 'Player ID (UID)' },
-      pubg: { name: 'PUBG Mobile', placeholderKm: 'Character ID (UID)', placeholderEn: 'Character ID (UID)' },
-      roblox: { name: 'Honor of Kings', placeholderKm: 'Player ID ឬ Username', placeholderEn: 'Player ID or Username' }
+      freefire: {
+        name: 'Free Fire',
+        unitKm: 'ពេជ្រ 💎',
+        unitEn: 'Diamonds 💎',
+        placeholderKm: 'Player ID (UID)',
+        placeholderEn: 'Player ID (UID)'
+      },
+      mlbb: {
+        name: 'Mobile Legends',
+        unitKm: 'ពេជ្រ 💎',
+        unitEn: 'Diamonds 💎',
+        placeholderKm: 'User ID (Zone ID)',
+        placeholderEn: 'User ID (Zone ID)'
+      },
+      pubg: {
+        name: 'PUBG Mobile',
+        unitKm: 'UC 💵',
+        unitEn: 'UC 💵',
+        placeholderKm: 'Character ID (UID)',
+        placeholderEn: 'Character ID (UID)'
+      },
+      roblox: {
+        name: 'Roblox',
+        unitKm: 'Robux 🪙',
+        unitEn: 'Robux 🪙',
+        placeholderKm: 'Roblox Username ឬ ID',
+        placeholderEn: 'Roblox Username or ID'
+      }
     };
 
     let selectedOrder = {
@@ -357,11 +385,14 @@
 
       document.getElementById('t-pay-title').innerText = t.payTitle;
       document.getElementById('t-pay-subtitle').innerText = t.paySubtitle;
+      document.getElementById('t-timer-label').innerText = t.timerLabel;
+      document.getElementById('t-expired-title').innerText = t.expiredTitle;
+      document.getElementById('t-expired-desc').innerText = t.expiredDesc;
+      document.getElementById('t-refresh-btn').innerText = t.refreshBtn;
       document.getElementById('t-row-pkg').innerText = t.rowPkg;
       document.getElementById('t-row-id').innerText = t.rowId;
       document.getElementById('t-row-price').innerText = t.rowPrice;
       document.getElementById('t-send-slip-btn').innerHTML = `<span>${t.sendSlip}</span>`;
-      document.getElementById('khqr-pkg-name').innerText = `${selectedOrder.gameKey.toUpperCase()} - ${selectedOrder.amount} ${t.unitDiamond}`;
 
       renderPackageList();
     }
@@ -370,7 +401,8 @@
       const grid = document.getElementById('package-grid');
       if (!grid) return;
       grid.innerHTML = '';
-      const t = i18n[currentLang];
+      const game = gameDatabase[selectedOrder.gameKey] || gameDatabase.freefire;
+      const unit = currentLang === 'km' ? game.unitKm : game.unitEn;
 
       diamondPackages.forEach((pkg) => {
         const isSelected = pkg.fileKey === selectedOrder.fileKey;
@@ -384,7 +416,7 @@
             <span class="text-base">💎</span>
             <div>
               <p class="font-extrabold text-indigo-400 font-inter text-xs">$${pkg.price.toFixed(2)}</p>
-              <p class="text-[10px] text-gray-300 font-medium leading-tight">${pkg.amount} ${t.unitDiamond}</p>
+              <p class="text-[10px] text-gray-300 font-medium leading-tight">${pkg.amount} ${unit}</p>
             </div>
           </div>
         `;
@@ -423,14 +455,43 @@
 
     function closeGameModal() { document.getElementById('game-modal').classList.add('hidden'); }
 
+    function startQRCountdown() {
+      clearInterval(qrTimerInterval);
+      document.getElementById('qr-expired-overlay').classList.add('hidden');
+
+      let timeLeft = TEN_MINUTES_SECONDS;
+      const countdownDisplay = document.getElementById('khqr-countdown');
+
+      function updateTimer() {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+        countdownDisplay.innerText = `${minutes}:${seconds}`;
+
+        if (timeLeft <= 0) {
+          clearInterval(qrTimerInterval);
+          document.getElementById('qr-expired-overlay').classList.remove('hidden');
+        }
+        timeLeft--;
+      }
+
+      updateTimer();
+      qrTimerInterval = setInterval(updateTimer, 1000);
+    }
+
+    function refreshExpiredQR() { startQRCountdown(); }
+
     function openPaymentModal() {
       const uid = document.getElementById('uid-input').value.trim();
       const t = i18n[currentLang];
       if (!uid) return alert(t.enterUidAlert);
 
       selectedOrder.uid = uid;
+      const game = gameDatabase[selectedOrder.gameKey] || gameDatabase.freefire;
+      const unit = currentLang === 'km' ? game.unitKm : game.unitEn;
 
-      document.getElementById('khqr-pkg-name').innerText = `${selectedOrder.gameKey.toUpperCase()} - ${selectedOrder.amount} ${t.unitDiamond}`;
+      document.getElementById('khqr-pkg-name').innerText = `${game.name} - ${selectedOrder.amount} ${unit}`;
       document.getElementById('khqr-player-id').innerText = selectedOrder.uid;
       document.getElementById('khqr-final-price').innerText = `$${selectedOrder.price.toFixed(2)} USD`;
 
@@ -456,13 +517,14 @@
 
       closeGameModal();
       document.getElementById('payment-modal').classList.remove('hidden');
+      startQRCountdown();
     }
 
     function closePaymentModal() {
+      clearInterval(qrTimerInterval);
       document.getElementById('payment-modal').classList.add('hidden');
     }
 
-    // Live Search Filter for Games
     function filterGames() {
       const query = document.getElementById('game-search').value.toLowerCase();
       const items = document.querySelectorAll('.game-item');
