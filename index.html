@@ -26,15 +26,15 @@
 </head>
 <body class="min-h-screen pb-24">
 
-  <!-- Header Bar -->
-  <header class="sticky top-0 z-40 bg-[#0c0f17]/95 backdrop-blur-md px-4 py-3 border-b border-gray-800/60 max-w-lg mx-auto flex items-center justify-between">
-    <div class="flex items-center space-x-2">
-      <div class="text-indigo-400 text-xl">
-        <svg class="w-6 h-6 fill-current text-indigo-500" viewBox="0 0 24 24">
-          <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
-        </svg>
+  <!-- ================= TOP APP BAR (មានរូបភាព LOGO) ================= -->
+  <header class="sticky top-0 z-40 bg-[#0c0f17]/95 backdrop-blur-md px-4 py-2.5 border-b border-gray-800/60 max-w-lg mx-auto flex items-center justify-between">
+    <!-- Brand Logo & Name -->
+    <div class="flex items-center space-x-2.5">
+      <!-- រូបភាព Logo ផ្ទាល់ខ្លួនរបស់អ្នក -->
+      <div class="w-9 h-9 rounded-xl overflow-hidden p-0.5 bg-gradient-to-tr from-amber-500 via-yellow-400 to-indigo-500 shadow-md flex-shrink-0">
+        <img src="./logo.png" onerror="this.src='./logo.jpg'" alt="Logo" class="w-full h-full object-cover rounded-[10px] bg-neutral-950">
       </div>
-      <span class="font-inter font-black text-lg text-white tracking-tight">MYIOVE <span class="text-indigo-400">TopUp</span></span>
+      <span class="font-inter font-black text-base sm:text-lg text-white tracking-tight">MYIOVE <span class="text-indigo-400">TopUp</span></span>
     </div>
 
     <!-- Language Toggle -->
@@ -73,7 +73,7 @@
       </div>
     </div>
 
-    <!-- បញ្ជីហ្គេមទាំង ៤ -->
+    <!-- ================= បញ្ជីហ្គេមទាំង ៤ ================= -->
     <div class="bg-[#141824] border border-gray-800/80 rounded-2xl p-4 shadow-xl">
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="games-container">
 
@@ -185,7 +185,7 @@
     </div>
   </div>
 
-  <!-- ================= POP-UP ទី ២: ផ្ទាំងទូទាត់ KHQR (នាទីធំច្បាស់) ================= -->
+  <!-- POP-UP ទី ២: ផ្ទាំងទូទាត់ KHQR (នាឡិកាធំច្បាស់) -->
   <div id="payment-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
     <div class="w-full max-w-[340px] bg-[#141824] border border-gray-800 rounded-3xl p-4 relative shadow-2xl text-center">
       <button onclick="closePaymentModal()" class="absolute top-3.5 right-3.5 text-gray-400 hover:text-white text-2xl font-bold p-1 z-10">✕</button>
@@ -193,7 +193,7 @@
       <h3 id="t-pay-title" class="font-black text-base text-indigo-400 mb-0.5">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
       <p id="t-pay-subtitle" class="text-[11px] text-gray-400 mb-2.5">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
 
-      <!-- ================= នាឡិការាប់ថយក្រោយ (ពង្រីកធំច្បាស់) ================= -->
+      <!-- នាឡិការាប់ថយក្រោយ ១០ នាទី (ធំច្បាស់) -->
       <div class="flex flex-col items-center justify-center bg-black/70 border border-amber-500/40 rounded-2xl py-2 px-3 mb-3 shadow-inner">
         <span id="t-timer-label" class="text-[11px] text-gray-300 font-medium">⏳ QR ផុតកំណត់ក្នុងរយៈពេល</span>
         <span id="khqr-countdown" class="font-inter font-black text-2xl text-amber-400 tracking-wider mt-0.5 drop-shadow">10:00</span>
