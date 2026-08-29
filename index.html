@@ -73,9 +73,9 @@
       </div>
     </div>
 
-    <!-- ================= ហ្គេមទាំង ៤ ដាច់ដោយឡែកពីគ្នា ================= -->
+    <!-- បញ្ជីហ្គេមទាំង ៤ -->
     <div class="bg-[#141824] border border-gray-800/80 rounded-2xl p-4 shadow-xl">
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5" id="games-container">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4" id="games-container">
 
         <!-- ១. Free Fire -->
         <div onclick="openGameModal('freefire', 'Free Fire', './freefire.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
@@ -83,7 +83,6 @@
             <img src="./freefire.png" onerror="this.src='./freefire.jpg'" class="w-full h-full object-cover" alt="Free Fire">
           </div>
           <span class="text-xs font-bold text-gray-200 mt-2 text-center line-clamp-1">Free Fire</span>
-          <span class="text-[10px] text-indigo-400 font-inter font-semibold">Diamonds</span>
         </div>
 
         <!-- ២. Mobile Legends -->
@@ -93,7 +92,6 @@
             <span class="absolute top-1 right-1 bg-blue-600/90 text-[9px] px-1 rounded font-bold">🇰🇭</span>
           </div>
           <span class="text-xs font-bold text-gray-200 mt-2 text-center line-clamp-1">Mobile Legends</span>
-          <span class="text-[10px] text-indigo-400 font-inter font-semibold">Diamonds</span>
         </div>
 
         <!-- ៣. PUBG Mobile -->
@@ -102,7 +100,6 @@
             <img src="./pubg.png" onerror="this.src='./pubg.jpg'" class="w-full h-full object-cover" alt="PUBG">
           </div>
           <span class="text-xs font-bold text-gray-200 mt-2 text-center line-clamp-1">PUBG Mobile</span>
-          <span class="text-[10px] text-indigo-400 font-inter font-semibold">UC</span>
         </div>
 
         <!-- ៤. Roblox -->
@@ -111,7 +108,6 @@
             <img src="./roblox.png" onerror="this.src='./roblox.jpg'" class="w-full h-full object-cover" alt="Roblox">
           </div>
           <span class="text-xs font-bold text-gray-200 mt-2 text-center line-clamp-1">Roblox</span>
-          <span class="text-[10px] text-indigo-400 font-inter font-semibold">Robux</span>
         </div>
 
       </div>
@@ -189,17 +185,18 @@
     </div>
   </div>
 
-  <!-- POP-UP ទី ២: ផ្ទាំងទូទាត់ KHQR (១០ នាទី) -->
+  <!-- ================= POP-UP ទី ២: ផ្ទាំងទូទាត់ KHQR (នាទីធំច្បាស់) ================= -->
   <div id="payment-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
     <div class="w-full max-w-[340px] bg-[#141824] border border-gray-800 rounded-3xl p-4 relative shadow-2xl text-center">
       <button onclick="closePaymentModal()" class="absolute top-3.5 right-3.5 text-gray-400 hover:text-white text-2xl font-bold p-1 z-10">✕</button>
       
       <h3 id="t-pay-title" class="font-black text-base text-indigo-400 mb-0.5">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
-      <p id="t-pay-subtitle" class="text-[11px] text-gray-400 mb-2">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
+      <p id="t-pay-subtitle" class="text-[11px] text-gray-400 mb-2.5">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
 
-      <div class="flex items-center justify-between bg-black/60 border border-gray-800 rounded-xl px-3 py-1.5 mb-2.5">
-        <span id="t-timer-label" class="text-xs text-gray-300">⏳ QR ផុតកំណត់ក្នុង:</span>
-        <span id="khqr-countdown" class="font-inter font-black text-xs text-amber-400 tracking-wider">10:00</span>
+      <!-- ================= នាឡិការាប់ថយក្រោយ (ពង្រីកធំច្បាស់) ================= -->
+      <div class="flex flex-col items-center justify-center bg-black/70 border border-amber-500/40 rounded-2xl py-2 px-3 mb-3 shadow-inner">
+        <span id="t-timer-label" class="text-[11px] text-gray-300 font-medium">⏳ QR ផុតកំណត់ក្នុងរយៈពេល</span>
+        <span id="khqr-countdown" class="font-inter font-black text-2xl text-amber-400 tracking-wider mt-0.5 drop-shadow">10:00</span>
       </div>
 
       <div class="bg-[#181d28] border border-gray-800 rounded-xl p-2.5 mb-3 text-left text-xs space-y-1">
@@ -217,6 +214,7 @@
         </div>
       </div>
 
+      <!-- Frame QR Code & Expired Overlay -->
       <div class="relative w-full flex items-center justify-center overflow-hidden rounded-2xl shadow-xl bg-transparent min-h-[260px]">
         <img id="display-qr-img" src="" class="w-full h-auto object-cover rounded-2xl block -mb-1.5" alt="KHQR Payment">
         
@@ -255,7 +253,7 @@
         scanBtn: "ស្កេនទូទាត់ KHQR ➔",
         payTitle: "ស្កេនទូទាត់ប្រាក់ (KHQR)",
         paySubtitle: "ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)",
-        timerLabel: "⏳ QR ផុតកំណត់ក្នុង:",
+        timerLabel: "⏳ QR ផុតកំណត់ក្នុងរយៈពេល",
         expiredTitle: "QR Code បានផុតកំណត់!",
         expiredDesc: "លើសពី ១០ នាទី សូមចុចបង្កើត QR ថ្មី",
         refreshBtn: "🔄 បង្កើត QR ថ្មី",
@@ -278,7 +276,7 @@
         scanBtn: "Scan KHQR to Pay ➔",
         payTitle: "Scan to Pay (KHQR)",
         paySubtitle: "Supported by all Banks & Bakong App",
-        timerLabel: "⏳ QR Expires In:",
+        timerLabel: "⏳ QR Expires In",
         expiredTitle: "QR Code Expired!",
         expiredDesc: "Past 10 minutes, please generate a new QR",
         refreshBtn: "🔄 Generate New QR",
@@ -292,7 +290,6 @@
       }
     };
 
-    // តារាងកញ្ចប់ពេជ្រ និងរូបភាព QR ទាំង ១០ ត្រូវគ្នានឹងតម្លៃ
     const diamondPackages = [
       { amount: 100, price: 0.50, fileKey: '0.5' },
       { amount: 110, price: 1.00, fileKey: '1' },
@@ -306,7 +303,6 @@
       { amount: 6000, price: 50.00, fileKey: '50' }
     ];
 
-    // ទិន្នន័យហ្គេមទាំង ៤ ដាច់ដោយឡែកពីគ្នា
     const gameDatabase = {
       freefire: {
         name: 'Free Fire',
