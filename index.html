@@ -78,7 +78,7 @@
         <div class="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto pr-1" id="package-grid"></div>
       </div>
 
-      <!-- បញ្ចូល ID -->
+      <!-- បញ្ចូល Game ID -->
       <div>
         <label id="uid-label" class="text-xs text-amber-300 font-bold block mb-1.5">២. បញ្ចូល Game ID</label>
         <input type="text" id="uid-input" placeholder="បញ្ចូល Player ID" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
@@ -121,9 +121,9 @@
         </div>
       </div>
 
-      <!-- Frame រូបភាព QR Code តាមតម្លៃជាក់លាក់ (NOCH CHATHEA) -->
-      <div class="bg-white p-2 rounded-2xl shadow-xl flex items-center justify-center min-h-[260px]">
-        <img id="display-qr-img" src="./qr-0.5.jpg" onerror="this.src='./my-khqr.png'" class="w-full h-auto max-h-[55vh] rounded-xl object-contain" alt="KHQR Payment">
+      <!-- Frame រូបភាព QR Code -->
+      <div class="bg-white p-2 rounded-2xl shadow-xl flex items-center justify-center min-h-[300px]">
+        <img id="display-qr-img" src="" class="w-full h-auto max-h-[55vh] rounded-xl object-contain" alt="KHQR Payment">
       </div>
 
       <!-- ប៊ូតុងផ្ញើវិក្កយបត្រ -->
@@ -141,18 +141,18 @@
   </a>
 
   <script>
-    // តារាងតម្លៃពេជ្រទាំង ១០ កញ្ចប់ និងរូបភាព QR ត្រូវគ្នានីមួយៗ
+    // តារាងតម្លៃពេជ្រ និងប្រព័ន្ធស្វែងរករូបភាពស្វ័យប្រវត្តិ (ទាំងឈ្មោះសញ្ញាដក '-' និងសញ្ញាគូសក្រោម '_')
     const diamondPackages = [
-      { name: '100 ពេជ្រ 💎', price: 0.50, qrImage: './qr-0.5.jpg' },
-      { name: '110 ពេជ្រ 💎', price: 1.00, qrImage: './qr-1.jpg' },
-      { name: '250 ពេជ្រ 💎', price: 2.00, qrImage: './qr-2.jpg' },
-      { name: '350 ពេជ្រ 💎', price: 3.00, qrImage: './qr-3.jpg' },
-      { name: '550 ពេជ្រ 💎', price: 5.00, qrImage: './qr-5.jpg' },
-      { name: '1100 ពេជ្រ 💎', price: 10.00, qrImage: './qr-10.jpg' },
-      { name: '1600 ពេជ្រ 💎', price: 15.00, qrImage: './qr-15.jpg' },
-      { name: '2500 ពេជ្រ 💎', price: 20.00, qrImage: './qr-20.jpg' },
-      { name: '3200 ពេជ្រ 💎', price: 30.00, qrImage: './qr-30.jpg' },
-      { name: '6000 ពេជ្រ 💎', price: 50.00, qrImage: './qr-50.jpg' }
+      { name: '100 ពេជ្រ 💎', price: 0.50, fileKey: '0.5' },
+      { name: '110 ពេជ្រ 💎', price: 1.00, fileKey: '1' },
+      { name: '250 ពេជ្រ 💎', price: 2.00, fileKey: '2' },
+      { name: '350 ពេជ្រ 💎', price: 3.00, fileKey: '3' },
+      { name: '550 ពេជ្រ 💎', price: 5.00, fileKey: '5' },
+      { name: '1100 ពេជ្រ 💎', price: 10.00, fileKey: '10' },
+      { name: '1600 ពេជ្រ 💎', price: 15.00, fileKey: '15' },
+      { name: '2500 ពេជ្រ 💎', price: 20.00, fileKey: '20' },
+      { name: '3200 ពេជ្រ 💎', price: 30.00, fileKey: '30' },
+      { name: '6000 ពេជ្រ 💎', price: 50.00, fileKey: '50' }
     ];
 
     const gameDatabase = {
@@ -166,7 +166,7 @@
       gameKey: 'freefire',
       packageName: '100 ពេជ្រ 💎',
       price: 0.50,
-      qrImage: './qr-0.5.jpg',
+      fileKey: '0.5',
       uid: ''
     };
 
@@ -207,7 +207,7 @@
         btn.onclick = () => {
           selectedOrder.packageName = pkg.name;
           selectedOrder.price = pkg.price;
-          selectedOrder.qrImage = pkg.qrImage;
+          selectedOrder.fileKey = pkg.fileKey;
           document.getElementById('price-tag').innerText = `$${pkg.price.toFixed(2)}`;
           document.querySelectorAll('.pkg-btn').forEach(b => {
             b.className = 'pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs bg-[#1b1410] text-gray-200 border-amber-900/60 font-medium';
@@ -219,7 +219,7 @@
         if (isFirst) {
           selectedOrder.packageName = pkg.name;
           selectedOrder.price = pkg.price;
-          selectedOrder.qrImage = pkg.qrImage;
+          selectedOrder.fileKey = pkg.fileKey;
           document.getElementById('price-tag').innerText = `$${pkg.price.toFixed(2)}`;
         }
       });
@@ -235,25 +235,31 @@
 
       selectedOrder.uid = uid;
 
-      // បង្ហាញព័ត៌មាន និងប្តូររូបភាព QR ទៅតាមតម្លៃពេជ្រ
       document.getElementById('khqr-pkg-name').innerText = `${selectedOrder.gameKey.toUpperCase()} - ${selectedOrder.packageName}`;
       document.getElementById('khqr-player-id').innerText = selectedOrder.uid;
       document.getElementById('khqr-final-price').innerText = `$${selectedOrder.price.toFixed(2)} USD`;
-      document.getElementById('display-qr-img').src = selectedOrder.qrImage;
 
-      // រក្សាទុក Order ចូល System
-      const orderId = 'ORD' + Math.floor(100000 + Math.random() * 900000);
-      const orders = JSON.parse(localStorage.getItem('gametopup_orders') || '[]');
-      orders.unshift({
-        orderId: orderId,
-        game: selectedOrder.gameKey,
-        packageName: selectedOrder.packageName,
-        price: selectedOrder.price,
-        uid: selectedOrder.uid,
-        date: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        status: 'PENDING'
-      });
-      localStorage.setItem('gametopup_orders', JSON.stringify(orders));
+      // មុខងារឆ្លាតវៃ៖ សាកល្បងហៅឈ្មោះ File គ្រប់ទម្រង់ (qr_X.jpg ឬ qr-X.jpg ឬ .png) ដើម្បីកុំឱ្យចេញប្រអប់សទទេ
+      const imgElem = document.getElementById('display-qr-img');
+      const key = selectedOrder.fileKey;
+      
+      const possibleSources = [
+        `./qr_${key}.jpg`,
+        `./qr-${key}.jpg`,
+        `./qr_${key}.png`,
+        `./qr-${key}.png`,
+        `./qr_${key}.jpeg`,
+        `./my-khqr.png`
+      ];
+
+      let currentIndex = 0;
+      imgElem.onerror = function() {
+        currentIndex++;
+        if (currentIndex < possibleSources.length) {
+          imgElem.src = possibleSources[currentIndex];
+        }
+      };
+      imgElem.src = possibleSources[0];
 
       closeGameModal();
       document.getElementById('payment-modal').classList.remove('hidden');
