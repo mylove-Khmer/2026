@@ -97,37 +97,37 @@
     </div>
   </div>
 
-  <!-- POP-UP ទី ២: ផ្ទាំងបង្ហាញរូបភាព KHQR ជាក់លាក់តាមតម្លៃពេជ្រនីមួយៗ -->
+  <!-- POP-UP ទី ២: បង្ហាញតែរូបភាព KHQR សុទ្ធសាធ (គ្មានគែមសងខាង) -->
   <div id="payment-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
-    <div class="w-full max-w-sm bg-[#2d221c] border border-amber-500/50 rounded-3xl p-4 sm:p-5 relative shadow-2xl text-center">
-      <button onclick="closePaymentModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl font-bold p-1">✕</button>
+    <div class="w-full max-w-[340px] bg-[#2d221c] border border-amber-500/50 rounded-3xl p-4 relative shadow-2xl text-center">
+      <button onclick="closePaymentModal()" class="absolute top-3.5 right-3.5 text-gray-400 hover:text-white text-2xl font-bold p-1 z-10">✕</button>
       
-      <h3 class="font-black text-lg text-amber-400 mb-1">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
-      <p class="text-xs text-gray-300 mb-3">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
+      <h3 class="font-black text-base text-amber-400 mb-0.5">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
+      <p class="text-[11px] text-gray-300 mb-3">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
 
       <!-- ព័ត៌មានការទិញ -->
-      <div class="bg-black/50 border border-amber-900/60 rounded-2xl p-3 mb-3 text-left space-y-1">
+      <div class="bg-black/50 border border-amber-900/60 rounded-xl p-2.5 mb-3 text-left text-xs space-y-1">
         <div class="flex justify-between items-center">
-          <span class="text-xs text-gray-400 font-bold">កញ្ចប់ពេជ្រ:</span>
-          <span id="khqr-pkg-name" class="text-xs font-bold text-amber-300">-</span>
+          <span class="text-gray-400 font-bold">កញ្ចប់ពេជ្រ:</span>
+          <span id="khqr-pkg-name" class="font-bold text-amber-300">-</span>
         </div>
         <div class="flex justify-between items-center">
-          <span class="text-xs text-gray-400 font-bold">Player ID:</span>
-          <span id="khqr-player-id" class="text-xs font-mono font-bold text-sky-400 select-all">-</span>
+          <span class="text-gray-400 font-bold">Player ID:</span>
+          <span id="khqr-player-id" class="font-mono font-bold text-sky-400 select-all">-</span>
         </div>
         <div class="flex justify-between items-center pt-1 border-t border-amber-900/40">
-          <span class="text-xs text-gray-300 font-bold">ចំនួនទឹកប្រាក់ត្រូវផ្ទេរ:</span>
-          <span id="khqr-final-price" class="text-base font-black text-green-400 font-inter">$0.00 USD</span>
+          <span class="text-gray-300 font-bold">ទឹកប្រាក់ត្រូវផ្ទេរ:</span>
+          <span id="khqr-final-price" class="font-black text-green-400 font-inter text-sm">$0.00 USD</span>
         </div>
       </div>
 
-      <!-- Frame រូបភាព QR Code -->
-      <div class="bg-white p-2 rounded-2xl shadow-xl flex items-center justify-center min-h-[300px]">
-        <img id="display-qr-img" src="" class="w-full h-auto max-h-[55vh] rounded-xl object-contain" alt="KHQR Payment">
+      <!-- រូបភាព QR ពេញទំហំ គ្មានប្រអប់ស ឬគែមសងខាង -->
+      <div class="w-full flex items-center justify-center overflow-hidden rounded-2xl shadow-xl">
+        <img id="display-qr-img" src="" class="w-full h-auto object-contain rounded-2xl block" alt="KHQR Payment">
       </div>
 
       <!-- ប៊ូតុងផ្ញើវិក្កយបត្រ -->
-      <a href="https://t.me/Bunsaleangraksa" target="_blank" class="w-full mt-3.5 bg-sky-500 hover:bg-sky-400 text-white py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5 shadow-lg transition">
+      <a href="https://t.me/Bunsaleangraksa" target="_blank" class="w-full mt-3 bg-sky-500 hover:bg-sky-400 text-white py-2.5 rounded-xl font-bold text-xs flex items-center justify-center space-x-1.5 shadow-lg transition">
         <span>ផ្ញើវិក្កយបត្រទៅអេតមីន (@Bunsaleangraksa)</span>
       </a>
     </div>
@@ -141,7 +141,6 @@
   </a>
 
   <script>
-    // តារាងតម្លៃពេជ្រ និងប្រព័ន្ធស្វែងរករូបភាពស្វ័យប្រវត្តិ (ទាំងឈ្មោះសញ្ញាដក '-' និងសញ្ញាគូសក្រោម '_')
     const diamondPackages = [
       { name: '100 ពេជ្រ 💎', price: 0.50, fileKey: '0.5' },
       { name: '110 ពេជ្រ 💎', price: 1.00, fileKey: '1' },
@@ -239,7 +238,6 @@
       document.getElementById('khqr-player-id').innerText = selectedOrder.uid;
       document.getElementById('khqr-final-price').innerText = `$${selectedOrder.price.toFixed(2)} USD`;
 
-      // មុខងារឆ្លាតវៃ៖ សាកល្បងហៅឈ្មោះ File គ្រប់ទម្រង់ (qr_X.jpg ឬ qr-X.jpg ឬ .png) ដើម្បីកុំឱ្យចេញប្រអប់សទទេ
       const imgElem = document.getElementById('display-qr-img');
       const key = selectedOrder.fileKey;
       
@@ -248,7 +246,6 @@
         `./qr-${key}.jpg`,
         `./qr_${key}.png`,
         `./qr-${key}.png`,
-        `./qr_${key}.jpeg`,
         `./my-khqr.png`
       ];
 
