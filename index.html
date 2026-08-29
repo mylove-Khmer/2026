@@ -18,19 +18,19 @@
 </head>
 <body class="text-white min-h-screen p-3 sm:p-4 pb-24 relative">
 
-  <!-- Language Switcher Bar (ជ្រុងខាងលើ) -->
+  <!-- ================= LANGUAGE SWITCHER BAR ================= -->
   <div class="max-w-md mx-auto flex justify-end mb-2">
     <div class="bg-[#2d221c] border border-amber-900/60 p-1 rounded-full flex items-center space-x-1 shadow-md">
-      <button onclick="changeLanguage('km')" id="lang-btn-km" class="px-2.5 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow">
+      <button onclick="setLanguage('km')" id="lang-btn-km" class="px-3 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow">
         🇰🇭 ខ្មែរ
       </button>
-      <button onclick="changeLanguage('en')" id="lang-btn-en" class="px-2.5 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition">
-        🇬🇧 EN
+      <button onclick="setLanguage('en')" id="lang-btn-en" class="px-3 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition">
+        🇬🇧 English
       </button>
     </div>
   </div>
 
-  <!-- Header Bar (Logo ខាងឆ្វេងដៃ) -->
+  <!-- Header Bar -->
   <div class="max-w-md mx-auto mb-4 flex items-center justify-center space-x-3">
     <div class="w-14 h-14 rounded-2xl p-0.5 bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 shadow-md shadow-amber-500/20 flex-shrink-0">
       <img src="./logo.png" onerror="this.src='./logo.jpg'" alt="Logo" class="w-full h-full object-cover rounded-2xl bg-neutral-900 border border-neutral-950">
@@ -84,7 +84,7 @@
       <div class="flex items-center space-x-3 pb-2 border-b border-amber-900/60">
         <div id="modal-game-icon" class="w-10 h-10 rounded-xl overflow-hidden bg-amber-500 flex items-center justify-center font-bold text-xl text-black"></div>
         <div>
-          <h3 id="modal-game-name" class="font-extrabold text-base text-amber-400">Game</h3>
+          <h3 id="modal-game-name" class="font-extrabold text-base text-amber-400">ហ្គេម</h3>
           <p id="t-modal-subtitle" class="text-[11px] text-gray-400">ជ្រើសកញ្ចប់ពេជ្រ & បញ្ចូល ID</p>
         </div>
       </div>
@@ -96,7 +96,7 @@
 
       <div>
         <label id="uid-label" class="text-xs text-amber-300 font-bold block mb-1.5">២. បញ្ចូល Game ID</label>
-        <input type="text" id="uid-input" placeholder="Enter Player ID" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
+        <input type="text" id="uid-input" placeholder="បញ្ចូល Player ID" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
       </div>
 
       <div class="pt-2 border-t border-amber-900/40 flex justify-between items-center sticky bottom-0 bg-[#2d221c]">
@@ -125,7 +125,7 @@
           <span id="khqr-pkg-name" class="font-bold text-amber-300">-</span>
         </div>
         <div class="flex justify-between items-center">
-          <span class="text-gray-400 font-bold">Player ID:</span>
+          <span id="t-row-id" class="text-gray-400 font-bold">Player ID:</span>
           <span id="khqr-player-id" class="font-mono font-bold text-sky-400 select-all">-</span>
         </div>
         <div class="flex justify-between items-center pt-1 border-t border-amber-900/40">
@@ -168,6 +168,7 @@
         payTitle: "ស្កេនទូទាត់ប្រាក់ (KHQR)",
         paySubtitle: "ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)",
         rowPkg: "កញ្ចប់ពេជ្រ:",
+        rowId: "Player ID:",
         rowPrice: "ទឹកប្រាក់ត្រូវផ្ទេរ:",
         sendSlip: "ផ្ញើវិក្កយបត្រទៅអេតមីន (@MeiKhmer)",
         unitDiamond: "ពេជ្រ 💎"
@@ -184,6 +185,7 @@
         payTitle: "Scan to Pay (KHQR)",
         paySubtitle: "Supported by all Banks & Bakong App",
         rowPkg: "Package:",
+        rowId: "Player ID:",
         rowPrice: "Amount to Pay:",
         sendSlip: "Send Receipt to Admin (@MeiKhmer)",
         unitDiamond: "Diamonds 💎"
@@ -218,55 +220,64 @@
       uid: ''
     };
 
-    // មុខងារផ្លាស់ប្តូរភាសា
-    function changeLanguage(lang) {
+    // មុខងារប្តូរភាសា & រក្សាទុកជម្រើសភ្ញៀវ
+    function setLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('myiove_lang', lang);
-      applyLanguageUI();
-      if (!document.getElementById('game-modal').classList.contains('hidden')) {
-        renderPackageList();
-      }
+      applyAllTranslations();
     }
 
-    function applyLanguageUI() {
+    function applyAllTranslations() {
       const t = i18n[currentLang];
 
+      // ប្តូរអត្ថបទលើទំព័រដើម
       document.getElementById('t-subtitle').innerText = t.subtitle;
+      document.querySelectorAll('.t-topup-btn').forEach(btn => btn.innerText = t.topupBtn);
+
+      // ប្តូរពណ៌ប៊ូតុងភាសា
+      const btnKm = document.getElementById('lang-btn-km');
+      const btnEn = document.getElementById('lang-btn-en');
+      if (currentLang === 'km') {
+        btnKm.className = 'px-3 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow';
+        btnEn.className = 'px-3 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition';
+      } else {
+        btnEn.className = 'px-3 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow';
+        btnKm.className = 'px-3 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition';
+      }
+
+      // ប្តូរអត្ថបទក្នុង Modal ទី ១ (ជ្រើសរើសកញ្ចប់)
       document.getElementById('t-modal-subtitle').innerText = t.modalSubtitle;
       document.getElementById('t-step1-label').innerText = t.step1;
       document.getElementById('t-price-label').innerText = t.priceLabel;
       document.getElementById('t-scan-btn').innerText = t.scanBtn;
-      document.getElementById('t-pay-title').innerText = t.payTitle;
-      document.getElementById('t-pay-subtitle').innerText = t.paySubtitle;
-      document.getElementById('t-row-pkg').innerText = t.rowPkg;
-      document.getElementById('t-row-price').innerText = t.rowPrice;
-      document.getElementById('t-send-slip-btn').innerHTML = `<span>${t.sendSlip}</span>`;
-
-      document.querySelectorAll('.t-topup-btn').forEach(btn => btn.innerText = t.topupBtn);
-
-      const btnKm = document.getElementById('lang-btn-km');
-      const btnEn = document.getElementById('lang-btn-en');
-      if (currentLang === 'km') {
-        btnKm.className = 'px-2.5 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow';
-        btnEn.className = 'px-2.5 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition';
-      } else {
-        btnEn.className = 'px-2.5 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow';
-        btnKm.className = 'px-2.5 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition';
-      }
 
       if (selectedOrder.gameKey) {
         const game = gameDatabase[selectedOrder.gameKey];
         const placeholder = currentLang === 'km' ? game.placeholderKm : game.placeholderEn;
         document.getElementById('uid-label').innerText = `${t.step2Prefix}${placeholder}`;
+        document.getElementById('uid-input').placeholder = placeholder;
       }
+
+      // ប្តូរអត្ថបទក្នុង Modal ទី ២ (ស្កេន KHQR)
+      document.getElementById('t-pay-title').innerText = t.payTitle;
+      document.getElementById('t-pay-subtitle').innerText = t.paySubtitle;
+      document.getElementById('t-row-pkg').innerText = t.rowPkg;
+      document.getElementById('t-row-id').innerText = t.rowId;
+      document.getElementById('t-row-price').innerText = t.rowPrice;
+      document.getElementById('t-send-slip-btn').innerHTML = `<span>${t.sendSlip}</span>`;
+      document.getElementById('khqr-pkg-name').innerText = `${selectedOrder.gameKey.toUpperCase()} - ${selectedOrder.amount} ${t.unitDiamond}`;
+
+      // Refresh បញ្ជីកញ្ចប់ពេជ្រឱ្យប្តូរអក្សរភាសាត្រូវគ្នា
+      renderPackageList();
     }
 
     function renderPackageList() {
       const grid = document.getElementById('package-grid');
+      if (!grid) return;
       grid.innerHTML = '';
       const t = i18n[currentLang];
 
-      diamondPackages.forEach((pkg, index) => {
+      diamondPackages.forEach((pkg) => {
         const isSelected = pkg.fileKey === selectedOrder.fileKey;
         const btn = document.createElement('div');
         btn.className = `pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs relative ${
@@ -356,8 +367,8 @@
       document.getElementById('payment-modal').classList.add('hidden');
     }
 
-    // Initialize Language UI on load
-    applyLanguageUI();
+    // ចាប់ផ្ដើមដំណើរការភាសាតាមការកំណត់របស់ភ្ញៀវភ្លាមៗ
+    applyAllTranslations();
   </script>
 </body>
 </html>
