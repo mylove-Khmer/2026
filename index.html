@@ -3,137 +3,236 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MYIOVE Khmer - Topup Game</title>
+  <title>MYIOVE TopUp — Fast Game Top-Up</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600;700;800&family=Inter:wght@600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700;800&family=Inter:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    body { font-family: 'Kantumruy Pro', sans-serif; background-color: #211915; }
-    .gold-card { background-color: #f59e0b; }
-    .active-pkg { background-color: #f59e0b !important; color: #000 !important; font-weight: 800; border-color: #fbbf24 !important; }
+    body {
+      font-family: 'Kantumruy Pro', sans-serif;
+      background-color: #0c0f17;
+      color: #ffffff;
+      -webkit-tap-highlight-color: transparent;
+    }
     .font-inter { font-family: 'Inter', sans-serif; }
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #1b1410; border-radius: 8px; }
-    ::-webkit-scrollbar-thumb { background: #d97706; border-radius: 8px; }
+    .active-pkg {
+      border-color: #8b5cf6 !important;
+      background-color: rgba(139, 92, 246, 0.18) !important;
+      color: #ffffff !important;
+    }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0c0f17; }
+    ::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
   </style>
 </head>
-<body class="text-white min-h-screen p-3 sm:p-4 pb-24 relative">
+<body class="min-h-screen pb-24">
 
-  <!-- ================= LANGUAGE SWITCHER BAR ================= -->
-  <div class="max-w-md mx-auto flex justify-end mb-2">
-    <div class="bg-[#2d221c] border border-amber-900/60 p-1 rounded-full flex items-center space-x-1 shadow-md">
-      <button onclick="setLanguage('km')" id="lang-btn-km" class="px-3 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow">
-        🇰🇭 ខ្មែរ
+  <!-- ================= TOP APP BAR ================= -->
+  <header class="sticky top-0 z-40 bg-[#0c0f17]/95 backdrop-blur-md px-4 py-3 border-b border-gray-800/60 max-w-lg mx-auto flex items-center justify-between">
+    <!-- Brand Logo & Name -->
+    <div class="flex items-center space-x-2">
+      <div class="text-indigo-400 text-xl">
+        <svg class="w-6 h-6 fill-current text-indigo-500" viewBox="0 0 24 24">
+          <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+        </svg>
+      </div>
+      <span class="font-inter font-black text-lg text-white tracking-tight">MYIOVE <span class="text-indigo-400">TopUp</span></span>
+    </div>
+
+    <!-- Language Toggle Pill -->
+    <div class="flex items-center bg-[#1e2330] p-1 rounded-full border border-gray-700/60">
+      <button onclick="setLanguage('en')" id="lang-btn-en" class="flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold transition text-gray-400 hover:text-white">
+        <span>🇺🇸</span>
+        <span class="font-inter">EN</span>
       </button>
-      <button onclick="setLanguage('en')" id="lang-btn-en" class="px-3 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition">
-        🇬🇧 English
+      <button onclick="setLanguage('km')" id="lang-btn-km" class="flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold transition bg-indigo-600 text-white shadow">
+        <span>🇰🇭</span>
+        <span>ខ្មែរ</span>
       </button>
     </div>
-  </div>
+  </header>
 
-  <!-- Header Bar -->
-  <div class="max-w-md mx-auto mb-4 flex items-center justify-center space-x-3">
-    <div class="w-14 h-14 rounded-2xl p-0.5 bg-gradient-to-tr from-amber-500 via-yellow-400 to-amber-600 shadow-md shadow-amber-500/20 flex-shrink-0">
-      <img src="./logo.png" onerror="this.src='./logo.jpg'" alt="Logo" class="w-full h-full object-cover rounded-2xl bg-neutral-900 border border-neutral-950">
-    </div>
-    <div class="text-left">
-      <h1 class="text-xl sm:text-2xl font-black tracking-wide text-amber-400 drop-shadow uppercase leading-tight">MYIOVE Khmer</h1>
-      <p id="t-subtitle" class="text-xs text-gray-400">ហាងបញ្ចូលពេជ្រ & កាក់ហ្គេមរហ័ស</p>
-    </div>
-  </div>
+  <main class="max-w-lg mx-auto px-4 pt-3 space-y-4">
 
-  <!-- Grid Game Cards ទាំង ៤ -->
-  <div class="max-w-md mx-auto grid grid-cols-2 gap-3 sm:gap-4">
-    <div onclick="openGameModal('mlbb', 'MOBILE LEGENDS', './mlbb.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
-      <div class="w-full aspect-square rounded-xl overflow-hidden shadow bg-neutral-900">
-        <img src="./mlbb.png" onerror="this.src='./mlbb.jpg'" class="w-full h-full object-cover" alt="MLBB">
+    <!-- ================= SEARCH INPUT ================= -->
+    <div class="relative">
+      <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-gray-400">
+        <svg class="w-4 h-4 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <path d="M21 21l-4.35-4.35"/>
+        </svg>
+      </span>
+      <input type="text" id="game-search" oninput="filterGames()" placeholder="Search games or #id..." class="w-full bg-[#181d28] border border-gray-800 rounded-xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition">
+    </div>
+
+    <!-- ================= TRENDING SECTION HEADER ================= -->
+    <div class="flex items-center space-x-2 pt-1">
+      <span id="t-trending-label" class="font-bold text-sm text-gray-200">ពេញនិយម</span>
+      <span>🔥</span>
+      <div class="flex items-center space-x-1.5 bg-[#181d28] px-2.5 py-1 rounded-full border border-gray-800">
+        <img src="./freefire.png" onerror="this.src='./freefire.jpg'" class="w-3.5 h-3.5 rounded-full object-cover" alt="FF">
+        <span class="text-xs font-bold text-white font-inter">Free Fire</span>
       </div>
-      <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">MOBILE LEGENDS</span>
-      <button class="t-topup-btn w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
     </div>
 
-    <div onclick="openGameModal('freefire', 'FREE FIRE', './freefire.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
-      <div class="w-full aspect-square rounded-xl overflow-hidden shadow bg-neutral-900">
-        <img src="./freefire.png" onerror="this.src='./freefire.jpg'" class="w-full h-full object-cover" alt="Free Fire">
+    <!-- ================= GAMES GRID CONTAINER ================= -->
+    <div class="bg-[#141824] border border-gray-800/80 rounded-2xl p-3.5 shadow-xl">
+      <div class="grid grid-cols-3 gap-3 sm:gap-4" id="games-container">
+
+        <!-- 1. MLBB Exclusive -->
+        <div onclick="openGameModal('mlbb', 'Mobile Legends Exclusive...', './mlbb.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
+          <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition relative">
+            <img src="./mlbb.png" onerror="this.src='./mlbb.jpg'" class="w-full h-full object-cover" alt="MLBB">
+            <span class="absolute top-1 right-1 bg-blue-600/90 text-[9px] px-1 rounded font-bold">🇰🇭</span>
+          </div>
+          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">Mobile Legends Exclusive...</span>
+        </div>
+
+        <!-- 2. Free Fire -->
+        <div onclick="openGameModal('freefire', 'Free Fire', './freefire.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
+          <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition">
+            <img src="./freefire.png" onerror="this.src='./freefire.jpg'" class="w-full h-full object-cover" alt="Free Fire">
+          </div>
+          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">Free Fire</span>
+        </div>
+
+        <!-- 3. MLBB Cambodia -->
+        <div onclick="openGameModal('mlbb', 'Mobile Legends Cambodia', './mlbb.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
+          <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition relative">
+            <img src="./mlbb.png" onerror="this.src='./mlbb.jpg'" class="w-full h-full object-cover" alt="MLBB">
+            <span class="absolute top-1 right-1 bg-blue-600/90 text-[9px] px-1 rounded font-bold">🇰🇭</span>
+          </div>
+          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">Mobile Legends Cambodia</span>
+        </div>
+
+        <!-- 4. PUBG Mobile Global -->
+        <div onclick="openGameModal('pubg', 'PUBG Mobile Global', './pubg.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
+          <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition">
+            <img src="./pubg.png" onerror="this.src='./pubg.jpg'" class="w-full h-full object-cover" alt="PUBG">
+          </div>
+          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">PUBG Mobile Global</span>
+        </div>
+
+        <!-- 5. Honor of Kings / Roblox -->
+        <div onclick="openGameModal('roblox', 'Honor of Kings', './roblox.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
+          <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition">
+            <img src="./roblox.png" onerror="this.src='./roblox.jpg'" class="w-full h-full object-cover" alt="Honor of Kings">
+          </div>
+          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">Honor of Kings</span>
+        </div>
+
+        <!-- 6. MLBB Special -->
+        <div onclick="openGameModal('mlbb', 'Mobile Legends Special', './mlbb.png')" class="game-item flex flex-col items-center cursor-pointer group active:scale-95 transition">
+          <div class="w-full aspect-square rounded-2xl overflow-hidden shadow-md bg-neutral-900 border border-gray-800 group-hover:border-indigo-500 transition">
+            <img src="./mlbb.png" onerror="this.src='./mlbb.jpg'" class="w-full h-full object-cover" alt="MLBB">
+          </div>
+          <span class="text-[11px] font-bold text-gray-200 mt-2 text-center line-clamp-2 leading-tight">Mobile Legends Special</span>
+        </div>
+
       </div>
-      <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">FREE FIRE</span>
-      <button class="t-topup-btn w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
     </div>
 
-    <div onclick="openGameModal('pubg', 'PUBG MOBILE', './pubg.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
-      <div class="w-full aspect-square rounded-xl overflow-hidden shadow bg-neutral-900">
-        <img src="./pubg.png" onerror="this.src='./pubg.jpg'" class="w-full h-full object-cover" alt="PUBG Mobile">
-      </div>
-      <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">PUBG MOBILE</span>
-      <button class="t-topup-btn w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
-    </div>
+  </main>
 
-    <div onclick="openGameModal('roblox', 'ROBLOX', './roblox.png')" class="gold-card rounded-2xl p-2 flex flex-col items-center shadow-lg cursor-pointer transition hover:scale-102 active:scale-95">
-      <div class="w-full aspect-square rounded-xl overflow-hidden shadow bg-[#0055ff]">
-        <img src="./roblox.png" onerror="this.src='./roblox.jpg'" class="w-full h-full object-cover" alt="Roblox">
-      </div>
-      <span class="text-xs font-extrabold text-neutral-950 mt-2 text-center truncate w-full px-0.5">ROBLOX</span>
-      <button class="t-topup-btn w-full bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold py-1.5 mt-1.5 rounded-full uppercase tracking-wider">TOPUP</button>
-    </div>
-  </div>
+  <!-- ================= BOTTOM NAVIGATION BAR ================= -->
+  <nav class="fixed bottom-0 left-0 right-0 z-40 bg-[#0e121c]/95 backdrop-blur-lg border-t border-gray-800/80 max-w-lg mx-auto flex items-center justify-around py-2 px-1">
+    
+    <!-- Games Tab (Active) -->
+    <button class="flex flex-col items-center text-indigo-400 space-y-0.5">
+      <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+        <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-10 7H8v3H6v-3H3v-2h3V8h2v3h3v2zm4.5 2c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm4-3c-.83 0-1.5-.67-1.5-1.5S18.67 9 19.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+      </svg>
+      <span id="nav-games" class="text-[10px] font-bold">ហ្គេម</span>
+    </button>
 
-  <!-- POP-UP ទី ១: ជ្រើសរើសកញ្ចប់ពេជ្រ & បញ្ចូល Game ID -->
+    <!-- Track Tab -->
+    <button onclick="alert(currentLang === 'km' ? 'មុខងារតាមដានវិក្កយបត្រនឹងបើកដំណើរការឆាប់ៗ!' : 'Tracking feature coming soon!')" class="flex flex-col items-center text-gray-400 hover:text-white space-y-0.5">
+      <svg class="w-5 h-5 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="M21 21l-4.35-4.35"/>
+      </svg>
+      <span class="text-[10px] font-bold font-inter">Track</span>
+    </button>
+
+    <!-- Orders Tab -->
+    <a href="https://t.me/MeiKhmer" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-white space-y-0.5">
+      <svg class="w-5 h-5 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+        <line x1="3" y1="6" x2="21" y2="6"/>
+        <path d="M16 10a4 4 0 0 1-8 0"/>
+      </svg>
+      <span id="nav-orders" class="text-[10px] font-bold">ការបញ្ជាទិញ</span>
+    </a>
+
+    <!-- Account / Login Tab -->
+    <a href="https://t.me/MeiKhmer" target="_blank" class="flex flex-col items-center text-gray-400 hover:text-white space-y-0.5">
+      <svg class="w-5 h-5 fill-none stroke-current" viewBox="0 0 24 24" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+        <circle cx="12" cy="7" r="4"/>
+      </svg>
+      <span id="nav-account" class="text-[10px] font-bold">ចូល</span>
+    </a>
+
+  </nav>
+
+  <!-- ================= POP-UP ទី ១: ជ្រើសរើសកញ្ចប់ពេជ្រ ================= -->
   <div id="game-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
-    <div class="w-full max-w-md bg-[#2d221c] rounded-3xl p-5 border border-amber-600/40 relative shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
+    <div class="w-full max-w-md bg-[#141824] rounded-3xl p-5 border border-gray-800 relative shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto">
       <button onclick="closeGameModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">✕</button>
       
-      <div class="flex items-center space-x-3 pb-2 border-b border-amber-900/60">
-        <div id="modal-game-icon" class="w-10 h-10 rounded-xl overflow-hidden bg-amber-500 flex items-center justify-center font-bold text-xl text-black"></div>
+      <div class="flex items-center space-x-3 pb-3 border-b border-gray-800">
+        <div id="modal-game-icon" class="w-11 h-11 rounded-2xl overflow-hidden bg-neutral-900 border border-gray-700 flex items-center justify-center font-bold text-xl"></div>
         <div>
-          <h3 id="modal-game-name" class="font-extrabold text-base text-amber-400">ហ្គេម</h3>
+          <h3 id="modal-game-name" class="font-extrabold text-sm text-white">Game Title</h3>
           <p id="t-modal-subtitle" class="text-[11px] text-gray-400">ជ្រើសកញ្ចប់ពេជ្រ & បញ្ចូល ID</p>
         </div>
       </div>
 
       <div>
-        <label id="t-step1-label" class="text-xs text-amber-300 font-bold block mb-1.5">១. ជ្រើសរើសចំនួនពេជ្រ</label>
-        <div class="grid grid-cols-2 gap-2 max-h-72 overflow-y-auto pr-1" id="package-grid"></div>
+        <label id="t-step1-label" class="text-xs text-indigo-400 font-bold block mb-2">១. ជ្រើសរើសចំនួនពេជ្រ</label>
+        <div class="grid grid-cols-2 gap-2 max-h-64 overflow-y-auto pr-1" id="package-grid"></div>
       </div>
 
       <div>
-        <label id="uid-label" class="text-xs text-amber-300 font-bold block mb-1.5">២. បញ្ចូល Game ID</label>
-        <input type="text" id="uid-input" placeholder="បញ្ចូល Player ID" class="w-full bg-[#1b1410] border border-amber-900/80 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-500">
+        <label id="uid-label" class="text-xs text-indigo-400 font-bold block mb-1.5">២. បញ្ចូល Game ID</label>
+        <input type="text" id="uid-input" placeholder="Enter Player ID" class="w-full bg-[#181d28] border border-gray-800 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 transition">
       </div>
 
-      <div class="pt-2 border-t border-amber-900/40 flex justify-between items-center sticky bottom-0 bg-[#2d221c]">
+      <div class="pt-3 border-t border-gray-800 flex justify-between items-center sticky bottom-0 bg-[#141824]">
         <div>
           <span id="t-price-label" class="text-[10px] text-gray-400 block">តម្លៃពេជ្រសរុប</span>
-          <span id="price-tag" class="text-xl font-black text-amber-400 font-inter">$0.50</span>
+          <span id="price-tag" class="text-lg font-black text-indigo-400 font-inter">$0.50</span>
         </div>
-        <button id="t-scan-btn" onclick="openPaymentModal()" class="bg-amber-500 hover:bg-amber-400 text-neutral-950 font-black px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs">
+        <button id="t-scan-btn" onclick="openPaymentModal()" class="bg-indigo-600 hover:bg-indigo-500 text-white font-black px-5 py-2.5 rounded-xl shadow-lg transition active:scale-95 text-xs">
           ស្កេនទូទាត់ KHQR ➔
         </button>
       </div>
     </div>
   </div>
 
-  <!-- POP-UP ទី ២: ផ្ទាំងបង្ហាញរូបភាព KHQR ជាក់លាក់ -->
+  <!-- ================= POP-UP ទី ២: ផ្ទាំងទូទាត់ KHQR ================= -->
   <div id="payment-modal" class="fixed inset-0 bg-black/85 backdrop-blur-sm flex justify-center items-center p-3 sm:p-4 hidden z-50">
-    <div class="w-full max-w-[340px] bg-[#2d221c] border border-amber-500/50 rounded-3xl p-4 relative shadow-2xl text-center">
+    <div class="w-full max-w-[340px] bg-[#141824] border border-gray-800 rounded-3xl p-4 relative shadow-2xl text-center">
       <button onclick="closePaymentModal()" class="absolute top-3.5 right-3.5 text-gray-400 hover:text-white text-2xl font-bold p-1 z-10">✕</button>
       
-      <h3 id="t-pay-title" class="font-black text-base text-amber-400 mb-0.5">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
-      <p id="t-pay-subtitle" class="text-[11px] text-gray-300 mb-3">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
+      <h3 id="t-pay-title" class="font-black text-base text-indigo-400 mb-0.5">ស្កេនទូទាត់ប្រាក់ (KHQR)</h3>
+      <p id="t-pay-subtitle" class="text-[11px] text-gray-400 mb-3">ទទួលគ្រប់ធនាគារ (Bakong App / Banking Apps)</p>
 
-      <div class="bg-black/50 border border-amber-900/60 rounded-xl p-2.5 mb-3 text-left text-xs space-y-1">
+      <div class="bg-[#181d28] border border-gray-800 rounded-xl p-2.5 mb-3 text-left text-xs space-y-1">
         <div class="flex justify-between items-center">
           <span id="t-row-pkg" class="text-gray-400 font-bold">កញ្ចប់ពេជ្រ:</span>
-          <span id="khqr-pkg-name" class="font-bold text-amber-300">-</span>
+          <span id="khqr-pkg-name" class="font-bold text-indigo-300">-</span>
         </div>
         <div class="flex justify-between items-center">
           <span id="t-row-id" class="text-gray-400 font-bold">Player ID:</span>
           <span id="khqr-player-id" class="font-mono font-bold text-sky-400 select-all">-</span>
         </div>
-        <div class="flex justify-between items-center pt-1 border-t border-amber-900/40">
+        <div class="flex justify-between items-center pt-1 border-t border-gray-800">
           <span id="t-row-price" class="text-gray-300 font-bold">ទឹកប្រាក់ត្រូវផ្ទេរ:</span>
           <span id="khqr-final-price" class="font-black text-green-400 font-inter text-sm">$0.00 USD</span>
         </div>
       </div>
 
+      <!-- QR Image Frame (គ្មានគែមសរំខាន) -->
       <div class="w-full flex items-center justify-center overflow-hidden rounded-2xl shadow-xl bg-transparent">
         <img id="display-qr-img" src="" class="w-full h-auto object-cover rounded-2xl block -mb-1.5" alt="KHQR Payment">
       </div>
@@ -144,21 +243,14 @@
     </div>
   </div>
 
-  <!-- Floating Telegram Button -->
-  <a href="https://t.me/MeiKhmer" target="_blank" rel="noopener noreferrer" title="Telegram Admin" class="fixed bottom-5 right-5 w-13 h-13 p-3 bg-sky-500 hover:bg-sky-400 text-white rounded-full flex items-center justify-center shadow-2xl transition duration-200 active:scale-90 z-40 border-2 border-white/20">
-    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24">
-      <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.458c.538-.196 1.006.128.832.943z"/>
-    </svg>
-  </a>
-
+  <!-- ================= JAVASCRIPT LOGIC ================= -->
   <script>
     let currentLang = localStorage.getItem('myiove_lang') || 'km';
 
-    // វចនានុក្រម ២ ភាសា (Khmer & English)
     const i18n = {
       km: {
-        subtitle: "ហាងបញ្ចូលពេជ្រ & កាក់ហ្គេមរហ័ស",
-        topupBtn: "TOPUP",
+        trending: "ពេញនិយម",
+        searchPlaceholder: "ស្វែងរកហ្គេម ឬ #id...",
         modalSubtitle: "ជ្រើសកញ្ចប់ពេជ្រ & បញ្ចូល ID",
         step1: "១. ជ្រើសរើសចំនួនពេជ្រ",
         step2Prefix: "២. បញ្ចូល ",
@@ -171,11 +263,14 @@
         rowId: "Player ID:",
         rowPrice: "ទឹកប្រាក់ត្រូវផ្ទេរ:",
         sendSlip: "ផ្ញើវិក្កយបត្រទៅអេតមីន (@MeiKhmer)",
-        unitDiamond: "ពេជ្រ 💎"
+        unitDiamond: "ពេជ្រ 💎",
+        navGames: "ហ្គេម",
+        navOrders: "ការបញ្ជាទិញ",
+        navAccount: "ចូល"
       },
       en: {
-        subtitle: "Fast Game Diamond & Coin Top-up Store",
-        topupBtn: "TOP UP",
+        trending: "Trending",
+        searchPlaceholder: "Search games or #id...",
         modalSubtitle: "Select Package & Enter ID",
         step1: "1. Select Diamond Package",
         step2Prefix: "2. Enter ",
@@ -188,7 +283,10 @@
         rowId: "Player ID:",
         rowPrice: "Amount to Pay:",
         sendSlip: "Send Receipt to Admin (@MeiKhmer)",
-        unitDiamond: "Diamonds 💎"
+        unitDiamond: "Diamonds 💎",
+        navGames: "Games",
+        navOrders: "Orders",
+        navAccount: "Login"
       }
     };
 
@@ -206,10 +304,10 @@
     ];
 
     const gameDatabase = {
-      mlbb: { name: 'MOBILE LEGENDS', placeholderKm: 'User ID (ឧ. 12345678)', placeholderEn: 'User ID (e.g. 12345678)' },
-      freefire: { name: 'FREE FIRE', placeholderKm: 'Player ID (UID)', placeholderEn: 'Player ID (UID)' },
-      pubg: { name: 'PUBG MOBILE', placeholderKm: 'Character ID (UID)', placeholderEn: 'Character ID (UID)' },
-      roblox: { name: 'ROBLOX', placeholderKm: 'Roblox Username ឬ ID', placeholderEn: 'Roblox Username or ID' }
+      mlbb: { name: 'Mobile Legends', placeholderKm: 'User ID (ឧ. 12345678)', placeholderEn: 'User ID (e.g. 12345678)' },
+      freefire: { name: 'Free Fire', placeholderKm: 'Player ID (UID)', placeholderEn: 'Player ID (UID)' },
+      pubg: { name: 'PUBG Mobile', placeholderKm: 'Character ID (UID)', placeholderEn: 'Character ID (UID)' },
+      roblox: { name: 'Honor of Kings', placeholderKm: 'Player ID ឬ Username', placeholderEn: 'Player ID or Username' }
     };
 
     let selectedOrder = {
@@ -220,7 +318,6 @@
       uid: ''
     };
 
-    // មុខងារប្តូរភាសា & រក្សាទុកជម្រើសភ្ញៀវ
     function setLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('myiove_lang', lang);
@@ -230,35 +327,34 @@
     function applyAllTranslations() {
       const t = i18n[currentLang];
 
-      // ប្តូរអត្ថបទលើទំព័រដើម
-      document.getElementById('t-subtitle').innerText = t.subtitle;
-      document.querySelectorAll('.t-topup-btn').forEach(btn => btn.innerText = t.topupBtn);
+      document.getElementById('t-trending-label').innerText = t.trending;
+      document.getElementById('game-search').placeholder = t.searchPlaceholder;
+      document.getElementById('nav-games').innerText = t.navGames;
+      document.getElementById('nav-orders').innerText = t.navOrders;
+      document.getElementById('nav-account').innerText = t.navAccount;
 
-      // ប្តូរពណ៌ប៊ូតុងភាសា
       const btnKm = document.getElementById('lang-btn-km');
       const btnEn = document.getElementById('lang-btn-en');
       if (currentLang === 'km') {
-        btnKm.className = 'px-3 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow';
-        btnEn.className = 'px-3 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition';
+        btnKm.className = 'flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold transition bg-indigo-600 text-white shadow';
+        btnEn.className = 'flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold transition text-gray-400 hover:text-white';
       } else {
-        btnEn.className = 'px-3 py-1 rounded-full text-xs font-bold transition bg-amber-500 text-neutral-950 shadow';
-        btnKm.className = 'px-3 py-1 rounded-full text-xs font-bold text-gray-300 hover:text-white transition';
+        btnEn.className = 'flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold transition bg-indigo-600 text-white shadow';
+        btnKm.className = 'flex items-center space-x-1 px-2.5 py-1 rounded-full text-xs font-bold transition text-gray-400 hover:text-white';
       }
 
-      // ប្តូរអត្ថបទក្នុង Modal ទី ១ (ជ្រើសរើសកញ្ចប់)
       document.getElementById('t-modal-subtitle').innerText = t.modalSubtitle;
       document.getElementById('t-step1-label').innerText = t.step1;
       document.getElementById('t-price-label').innerText = t.priceLabel;
       document.getElementById('t-scan-btn').innerText = t.scanBtn;
 
       if (selectedOrder.gameKey) {
-        const game = gameDatabase[selectedOrder.gameKey];
+        const game = gameDatabase[selectedOrder.gameKey] || gameDatabase.freefire;
         const placeholder = currentLang === 'km' ? game.placeholderKm : game.placeholderEn;
         document.getElementById('uid-label').innerText = `${t.step2Prefix}${placeholder}`;
         document.getElementById('uid-input').placeholder = placeholder;
       }
 
-      // ប្តូរអត្ថបទក្នុង Modal ទី ២ (ស្កេន KHQR)
       document.getElementById('t-pay-title').innerText = t.payTitle;
       document.getElementById('t-pay-subtitle').innerText = t.paySubtitle;
       document.getElementById('t-row-pkg').innerText = t.rowPkg;
@@ -267,7 +363,6 @@
       document.getElementById('t-send-slip-btn').innerHTML = `<span>${t.sendSlip}</span>`;
       document.getElementById('khqr-pkg-name').innerText = `${selectedOrder.gameKey.toUpperCase()} - ${selectedOrder.amount} ${t.unitDiamond}`;
 
-      // Refresh បញ្ជីកញ្ចប់ពេជ្រឱ្យប្តូរអក្សរភាសាត្រូវគ្នា
       renderPackageList();
     }
 
@@ -281,15 +376,15 @@
         const isSelected = pkg.fileKey === selectedOrder.fileKey;
         const btn = document.createElement('div');
         btn.className = `pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs relative ${
-          isSelected ? 'active-pkg' : 'bg-[#1b1410] text-gray-200 border-amber-900/60 font-medium'
+          isSelected ? 'active-pkg' : 'bg-[#181d28] text-gray-300 border-gray-800 font-medium'
         }`;
         
         btn.innerHTML = `
           <div class="flex items-center space-x-2">
             <span class="text-base">💎</span>
             <div>
-              <p class="font-extrabold text-amber-400 font-inter text-sm">$${pkg.price.toFixed(2)}</p>
-              <p class="text-[11px] text-gray-300 font-medium leading-tight">${pkg.amount} ${t.unitDiamond}</p>
+              <p class="font-extrabold text-indigo-400 font-inter text-xs">$${pkg.price.toFixed(2)}</p>
+              <p class="text-[10px] text-gray-300 font-medium leading-tight">${pkg.amount} ${t.unitDiamond}</p>
             </div>
           </div>
         `;
@@ -300,7 +395,7 @@
           selectedOrder.fileKey = pkg.fileKey;
           document.getElementById('price-tag').innerText = `$${pkg.price.toFixed(2)}`;
           document.querySelectorAll('.pkg-btn').forEach(b => {
-            b.className = 'pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs bg-[#1b1410] text-gray-200 border-amber-900/60 font-medium';
+            b.className = 'pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs bg-[#181d28] text-gray-300 border-gray-800 font-medium';
           });
           btn.className = 'pkg-btn p-2.5 rounded-xl cursor-pointer transition border text-xs active-pkg';
         };
@@ -310,7 +405,7 @@
 
     function openGameModal(gameKey, gameTitle, imgSrc) {
       selectedOrder.gameKey = gameKey;
-      const gameData = gameDatabase[gameKey];
+      const gameData = gameDatabase[gameKey] || gameDatabase.freefire;
 
       document.getElementById('modal-game-name').innerText = gameTitle;
       const iconContainer = document.getElementById('modal-game-icon');
@@ -367,7 +462,20 @@
       document.getElementById('payment-modal').classList.add('hidden');
     }
 
-    // ចាប់ផ្ដើមដំណើរការភាសាតាមការកំណត់របស់ភ្ញៀវភ្លាមៗ
+    // Live Search Filter for Games
+    function filterGames() {
+      const query = document.getElementById('game-search').value.toLowerCase();
+      const items = document.querySelectorAll('.game-item');
+      items.forEach(item => {
+        const title = item.querySelector('span').innerText.toLowerCase();
+        if (title.includes(query)) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
     applyAllTranslations();
   </script>
 </body>
